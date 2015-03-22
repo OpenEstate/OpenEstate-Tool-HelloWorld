@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.openestate.tool.plugins</groupId>
+  <artifactId>OpenEstate-Tool-HelloWorld</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>OpenEstate-Tool-HelloWorld</name>
+  <url>http://openestate.org</url>
+  <organization>
+    <name>OpenEstate</name>
+    <url>http://openestate.org/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>andy</id>
+      <name>Andreas Rudolph</name>
+      <email>andy@openindex.de</email>
+      <organization>OpenIndex</organization>
+      <organizationUrl>http://www.openindex.de/</organizationUrl>
+    </developer>
+    <developer>
+      <id>walter</id>
+      <name>Walter Wagner</name>
+      <email>walter@openindex.de</email>
+      <organization>OpenIndex</organization>
+      <organizationUrl>http://www.openindex.de/</organizationUrl>
+    </developer>
+  </developers>
+
+  <properties>
+    <project.apiVersion>2</project.apiVersion>
+    <project.buildVersion>1.0-SNAPSHOT</project.buildVersion>
+    <project.pluginVersion>1.0.0.0-SNAPSHOT</project.pluginVersion>
+    <project.immotoolVersion>1.0-SNAPSHOT</project.immotoolVersion>
+    <project.releaseDir>${project.basedir}/release</project.releaseDir>
+    <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+
+    <!-- Repository for OpenEstate-ImmoTool -->
+    <repository>
+      <id>openestate</id>
+      <name>openestate</name>
+      <url>http://maven.openestate.org/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <checksumPolicy>fail</checksumPolicy>
+        <updatePolicy>daily</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <checksumPolicy>fail</checksumPolicy>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+
+    <!-- Repository for gettext-commons -->
+    <repository>
+      <id>gettext-commons-site</id>
+      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
+      <releases>
+        <updatePolicy>daily</updatePolicy>
+      </releases>
+    </repository>
+
+  </repositories>
+  <pluginRepositories>
+
+    <!-- Plugin Repository for gettext-commons -->
+    <pluginRepository>
+      <id>gettext-commons-site</id>
+      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
+      <releases>
+        <updatePolicy>daily</updatePolicy>
+      </releases>
+    </pluginRepository>
+
+  </pluginRepositories>
+
+  <dependencies>
+
+    <!-- dependencies to OpenEstate-ImoTool -->
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- dependencies to certain addons of OpenEstate-ImoTool -->
+    <!--
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool-Agency</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+    <!--
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool-Contacts</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+    <!--
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool-CRM</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+    <!--
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool-Mail</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+    <!--
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool-Manual</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+    <!--
+    <dependency>
+      <groupId>com.openindex.openestate.tool</groupId>
+      <artifactId>OpenEstate-Tool-News</artifactId>
+      <version>${project.immotoolVersion}</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+
+    <!-- further compile dependencies -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>annotations</artifactId>
+      <version>3.0.0</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/*.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+
+      <!-- resources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+      </plugin>
+
+      <!-- clean -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.6.1</version>
+        <configuration>
+          <failOnError>false</failOnError>
+          <filesets>
+            <fileset>
+              <directory>${project.releaseDir}</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${project.javadocDir}</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <!-- compiler -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <showDeprecation>true</showDeprecation>
+          <debug>false</debug>
+        </configuration>
+      </plugin>
+
+      <!-- assembly -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <finalName>${project.artifactId}</finalName>
+          <outputDirectory>${project.releaseDir}</outputDirectory>
+          <appendAssemblyId>false</appendAssemblyId>
+          <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+          <descriptors>
+            <descriptor>assembly.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- source -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- javadoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+        <configuration>
+          <quiet>true</quiet>
+          <outputDirectory>${project.javadocDir}</outputDirectory>
+          <links>
+            <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            <link>http://manual.openestate.org/OpenEstate-Tool-${project.immotoolVersion}/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <id>javadoc-jar</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- findbugs -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <failOnError>false</failOnError>
+          <excludeFilterFile>${basedir}/findbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+
+      <!-- gettext / http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html -->
+      <plugin>
+        <groupId>org.xnap.commons</groupId>
+        <artifactId>maven-gettext-plugin</artifactId>
+        <version>1.2.3</version>
+        <configuration>
+          <targetBundle>org.openestate.tool.helloworld.resources.Messages</targetBundle>
+          <poDirectory>${project.basedir}/src/main/i18n</poDirectory>
+          <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+          <outputFormat>class</outputFormat>
+
+          <!-- set path to the gettext utilities, if they are not found automatically -->
+          <!--
+          <msgcatCmd>msgcat</msgcatCmd>
+          <msgfmtCmd>msgfmt</msgfmtCmd>
+          <msgmergeCmd>msgmerge</msgmergeCmd>
+          <xgettextCmd>xgettext</xgettextCmd>
+          -->
+        </configuration>
+        <executions>
+          <execution>
+            <id>i18n-generate-bundle</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>dist</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>
+
+    <!-- development profile -->
+    <profile>
+      <id>development</id>
+      <properties>
+        <createChecksum>true</createChecksum>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <source.skip>true</source.skip>
+        <assembly.skipAssembly>true</assembly.skipAssembly>
+      </properties>
+    </profile>
+
+    <!-- release profile -->
+    <profile>
+      <id>release</id>
+      <properties>
+        <createChecksum>true</createChecksum>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+        <source.skip>false</source.skip>
+        <assembly.skipAssembly>false</assembly.skipAssembly>
+      </properties>
+    </profile>
+
+  </profiles>
+</project>

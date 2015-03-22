@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="${project.artifactId}"
+        class="org.openestate.tool.helloworld.HelloWorldPlugin"
+        vendor="OpenEstate.org" version="${project.pluginVersion}">
+
+  <requires>
+    <!-- dependency to the application plugin "OpenEstate-Tool" is always required -->
+    <import plugin-id="OpenEstate-Tool" exported="false" />
+
+    <!-- add depdencies to further addons if required -->
+    <!--
+    <import plugin-id="OpenEstate-Tool-Agency" exported="false" optional="true" reverse-lookup="true" />
+    <import plugin-id="OpenEstate-Tool-Calendar" exported="false" optional="true" reverse-lookup="true" />
+    <import plugin-id="OpenEstate-Tool-Contacts" exported="false" optional="true" reverse-lookup="true" />
+    <import plugin-id="OpenEstate-Tool-CRM" exported="false" optional="true" reverse-lookup="true" />
+    <import plugin-id="OpenEstate-Tool-Mail" exported="false" optional="true" reverse-lookup="true" />
+    <import plugin-id="OpenEstate-Tool-Manual" exported="false" optional="true" reverse-lookup="true" />
+    <import plugin-id="OpenEstate-Tool-News" exported="false" optional="true" reverse-lookup="true" />
+    -->
+  </requires>
+
+  <runtime>
+
+    <!-- load library of this component -->
+    <library id="${project.artifactId}" type="code" path="lib/${project.artifactId}-${project.version}.jar">
+      <export prefix="*"/>
+    </library>
+
+    <!-- load further libraries from the plugins lib folder -->
+    <!--
+    <library id="MyOtherLibrary" type="code" path="lib/MyOtherLibrary.jar">
+      <export prefix="*"/>
+    </library>
+    -->
+
+  </runtime>
+
+  <!-- extension-point, DbHelloWorldExtension -->
+  <extension-point id="DbHelloWorldExtension">
+    <parameter-def id="handler" multiplicity="any">
+      <doc>
+        <doc-text>
+          Should have no-args constructor and implement
+          org.openestate.tool.helloworld.extensions.DbHelloWorldExtension
+        </doc-text>
+      </doc>
+    </parameter-def>
+  </extension-point>
+
+  <!-- extension-point, ObjectViewExtension -->
+  <extension-point id="ObjectViewExtension">
+    <parameter-def id="handler" multiplicity="any">
+      <doc>
+        <doc-text>
+          Should have no-args constructor and implement
+          org.openestate.tool.helloworld.extensions.ObjectViewExtension
+        </doc-text>
+      </doc>
+    </parameter-def>
+  </extension-point>
+
+  <!-- extension, HsqlDbHelloWorldExtension -->
+  <extension id="HsqlDbHelloWorldExtension" point-id="DbHelloWorldExtension" plugin-id="OpenEstate-Tool-HelloWorld" >
+    <parameter id="handler" value="org.openestate.tool.helloworld.db.hsql.HSqlDbHelloWorldExtension"/>
+  </extension>
+
+  <!-- extension, HelloWorldFrameMenuExtension -->
+  <extension id="HelloWorldFrameMenuExtension" point-id="FrameMenuExtension" plugin-id="OpenEstate-Tool" >
+    <parameter id="handler" value="org.openestate.tool.helloworld.HelloWorldFrameMenuExtension"/>
+  </extension>
+
+  <!-- extension, HelloWorldFrameSidebarExtension -->
+  <extension id="HelloWorldFrameSidebarExtension" point-id="FrameSidebarExtension" plugin-id="OpenEstate-Tool" >
+    <parameter id="handler" value="org.openestate.tool.helloworld.HelloWorldFrameSidebarExtension"/>
+  </extension>
+
+  <!-- extension, HelloWorldProjectExtension -->
+  <extension id="HelloWorldProjectExtension" point-id="ProjectExtension" plugin-id="OpenEstate-Tool" >
+    <parameter id="handler" value="org.openestate.tool.helloworld.HelloWorldProjectExtension"/>
+  </extension>
+
+</plugin>

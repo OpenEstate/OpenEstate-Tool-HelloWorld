@@ -1,5 +1,5 @@
-OpenEstate-Tool-HelloWorld (not released yet)
-=============================================
+OpenEstate-Tool-HelloWorld 1.0-SNAPSHOT
+=======================================
 
 *OpenEstate-Tool-HelloWorld* is an addon for the freeware real estate software
 [*OpenEstate-ImmoTool*](http://openestate.org). This addon does not provide any
@@ -32,5 +32,5 @@ Further informations
 --------------------
 
 -   [*OpenEstate-Tool-HelloWorld* at GitHub](https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld)
--   [API documentation for OpenEstate-ImmoTool](http://manual.openestate.org/OpenEstate-Tool/)
+-   [API documentation for *OpenEstate-ImmoTool*](http://manual.openestate.org/OpenEstate-Tool/)
 -   [OpenEstate Blog](http://openestate.org)

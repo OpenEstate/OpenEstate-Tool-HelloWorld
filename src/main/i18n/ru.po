@@ -1,0 +1,146 @@
+#
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-23 00:37+0100\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewTask.java:53
+#: org/openestate/tool/helloworld/HelloWorldObjectViewTask.java:62
+#, java-format
+msgid "Loading object {0}."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectRemoveTask.java:69
+msgid "Can't remove object!"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldFrameSidebarExtension.java:212
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:151
+msgid "Hello World!"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldFrameSidebarExtension.java:218
+msgid "Show details about the Hello World addon."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPermission.java:32
+msgid "use addon"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPermission.java:34
+msgid "access to objects"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPermission.java:35
+msgid "edit objects"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPermission.java:36
+msgid "remove objects"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:180
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:230
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:274
+msgid "Access denied!"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:196
+msgid "Help is not implemented yet!"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:234
+#, java-format
+msgid "Do you really want to remove object {0}?"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:329
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:338
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:313
+msgid "new object"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:331
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:340
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:544
+msgid "object"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:347
+msgid "Create a new object."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:349
+#, java-format
+msgid "Edit object {0}."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:598
+msgid "details about the object"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:601
+msgid "name"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:603
+msgid "Enter the name of the object."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:606
+msgid "notes about the object"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:608
+msgid "Enter some notes about the object."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldObjectViewPanel.java:811
+msgid "Can't save object!"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:79
+msgid "This plugin does not provide any features."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:315
+msgid "Add a new object."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:320
+msgid "show object"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:322
+msgid "Show details about the object."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:356
+msgid "remove object"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:358
+msgid "Remove object from the project."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:387
+msgid "refresh"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:389
+msgid "Refresh view in the sidebar."
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:480
+msgid "show Hello World!"
+msgstr ""
+
+#: org/openestate/tool/helloworld/HelloWorldPlugin.java:482
+msgid "Show view for Hello World! in the sidebar."
+msgstr ""

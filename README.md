@@ -3,11 +3,12 @@ OpenEstate-Tool-HelloWorld 1.0-SNAPSHOT
 
 *OpenEstate-Tool-HelloWorld* is an addon for the freeware real estate software
 [*OpenEstate-ImmoTool*](http://openestate.org), that does not provide any
-features for end users. This addon
+features for end users. Instead this addon
 
 -   is a starting point for developers, who want to create custom addons for
     *OpenEstate-ImmoTool*.
--   provides a build environment, that can easyliy be adapted for custom addons.
+-   provides a build environment, that can easyliy be adapted by developers for
+    their custom addons.
 -   illustrates how to extend main menu and sidebar.
 -   illustrates how to specify custom extension points.
 -   illustrates how to accomplish operations on a project database.
@@ -20,8 +21,8 @@ features for end users. This addon
 Dependencies
 ------------
 
--   Java 6 or newer (*Oracle Java* or *OpenJDK*)
--   OpenEstate-ImmoTool 1.0-SNAPSHOT (including its dependencies)
+-   *Java* 6 or newer (*Oracle Java* or *OpenJDK*)
+-   *OpenEstate-ImmoTool* 1.0-SNAPSHOT (including its dependencies)
 
 
 Requirements for developers
@@ -38,8 +39,10 @@ Requirements for developers
         separately.
 -   *GetText*
     -   Almost all *Linux* distributions provide packages for *GetText*.
-    -   Windows users may use the [binaries by gnuwin32](http://gnuwin32.sourceforge.net/packages/gettext.htm)
-    -   Mac users may install *GetText* via [brew](http://brew.sh/) or [MacPorts](http://www.macports.org/).
+    -   *Windows* users may use the
+        [binaries by *gnuwin32*](http://gnuwin32.sourceforge.net/packages/gettext.htm)
+    -   *Mac OS X* users may install *GetText* via [*brew*](http://brew.sh/) or
+        [*MacPorts*](http://www.macports.org/).
 
 
 Changelog

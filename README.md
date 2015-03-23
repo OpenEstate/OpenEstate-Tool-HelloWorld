@@ -20,7 +20,7 @@ features for end users. This addon
 Dependencies
 ------------
 
--   Java 6 or newer
+-   Java 6 or newer (*Oracle Java* or *OpenJDK*)
 -   OpenEstate-ImmoTool 1.0-SNAPSHOT (including its dependencies)
 
 
@@ -28,7 +28,7 @@ Requirements for developers
 ---------------------------
 
 -   *Java Development Kit* (JDK) 6 or newer
-    -   *Oracle JDK* and *OpenJDK* is known to work
+    -   *Oracle JDK* and *OpenJDK* are known to work
 -   *Netbeans* 8 (recommended but not required)
     -   Other IDE's like *Eclipse* or *IntelliJ* should also work. But we can't
         provide support for these applications.

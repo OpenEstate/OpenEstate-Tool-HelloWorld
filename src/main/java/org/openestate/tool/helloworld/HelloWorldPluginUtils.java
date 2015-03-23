@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * HelloWorldPluginUtils.
+ * Helper functions of the HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -75,7 +75,7 @@ public class HelloWorldPluginUtils
     ExtensionPoint point = getExtensionPoint( extensionName );
     if (point==null)
     {
-      LOGGER.warn( "Can't find extension-point!" );
+      LOGGER.warn( "Can't find extension point!" );
       LOGGER.warn( "> " + extensionName );
       return handlers;
     }
@@ -85,13 +85,13 @@ public class HelloWorldPluginUtils
     {
       final PluginDescriptor plugin = ext.getDeclaringPluginDescriptor();
 
-      // ggf. nur die Extensions eines bestimmten Plugins ermitteln
+      // only load extensions for certain plugins
       if (pluginIdList!=null && !pluginIdList.contains( plugin.getId() )) continue;
 
-      // ggf. nur die Extensions von Plugins ermitteln, die im aktuellen Projekt aktiviert sind
+      // only load extensions for certain plugins, that are enabled in the current project
       if (project!=null && !ImmoToolEnvironment.APP_PLUGIN.equals( plugin.getId() ) && !project.isPluginUsable( plugin.getId() )) continue;
 
-      // Objekte erzeugen, die im Parameter 'handler' übermittelt wurden
+      // create objects, that were specified in the 'handler' parameter
       for (Extension.Parameter p : ext.getParameters( "handler" ))
       {
         try
@@ -102,15 +102,15 @@ public class HelloWorldPluginUtils
           ClassLoader cl = ImmoToolEnvironment.getPluginManager().getPluginClassLoader( plugin );
           Object handler = cl.loadClass( clazz.trim() ).newInstance();
           if (handler==null)
-            LOGGER.warn( "Can't create handler-class: " + clazz );
+            LOGGER.warn( "Can't create handler class: " + clazz );
           else if (!handlerClass.isInstance( handler ))
-            LOGGER.warn( "The provided handler-class '" + clazz + "' is not an instance of '" + handlerClass.getName() + "'!" );
+            LOGGER.warn( "The provided handler class '" + clazz + "' is not an instance of '" + handlerClass.getName() + "'!" );
           else
             handlers.add( handler );
         }
         catch (Exception ex)
         {
-          LOGGER.warn( "Can't create extension-handler!" );
+          LOGGER.warn( "Can't create extension handler!" );
           LOGGER.warn( "> " + ex.getLocalizedMessage(), ex );
         }
       }

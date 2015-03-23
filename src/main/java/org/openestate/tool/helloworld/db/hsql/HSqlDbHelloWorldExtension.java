@@ -34,6 +34,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hsqldb.cmdline.SqlFile;
 import org.hsqldb.cmdline.SqlToolError;
 import org.openestate.tool.helloworld.HelloWorldPlugin;
@@ -44,7 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * HSqlDbHelloWorldExtension.
+ * Implementation of database access on a HSQL database.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -109,26 +110,26 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
   @Override
   public void install( Connection c ) throws IOException, SQLException
   {
-    LOGGER.info( "Installing helloworld-plugin." );
+    LOGGER.info( "Installing HelloWorld plugin." );
     Statement s = null;
     SqlFile f = null;
     try
     {
       s = c.createStatement();
 
-      // Erzeugung des Schemas für das Modul
+      // import database schema
       f = readHsqlFile( "schema.sql" );
       f.setConnection( c );
       f.execute();
       f.closeReader();
 
-      // Erzeugung der Prozeduren für das Modul
+      // import database routines
       f = readHsqlFile( "routines.sql" );
       f.setConnection( c );
       f.execute();
       f.closeReader();
 
-      // Datenstrukturen schreiben
+      // write database structures
       s.execute( "CHECKPOINT;" );
     }
     catch (SqlToolError ex)
@@ -157,17 +158,17 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
     InputStream input = null;
     try
     {
-      // Query lesen
+      // read query from a resource file
       input = HSqlDbHelloWorldExtension.class.getResourceAsStream( RESOURCE_PATH + file );
       if (input==null) return null;
-      List lines = IOUtils.readLines( input, "UTF-8" );
+      List<String> lines = IOUtils.readLines( input, "UTF-8" );
 
-      // Query als temporäre Datei speichern
+      // write query into a temporary file
       tempFile = File.createTempFile( "helloworld.", ".sql" );
       tempFile.deleteOnExit();
       FileUtils.writeLines( tempFile, lines );
 
-      // SQL-File erzeugen
+      // create a SQL file
       return new SqlFile( tempFile, "UTF-8" );
     }
     finally
@@ -181,12 +182,13 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
     InputStream input = null;
     try
     {
-      StringBuilder query = new StringBuilder();
+      // read query from a resource file
       input = HSqlDbHelloWorldExtension.class.getResourceAsStream( RESOURCE_PATH + file );
       if (input==null) return null;
-      List lines = IOUtils.readLines( input, "UTF-8" );
-      for (Object line : lines) query.append( line ).append( SystemUtils.LINE_SEPARATOR );
-      return query.toString();
+      List<String> lines = IOUtils.readLines( input, "UTF-8" );
+
+      // return query
+      return StringUtils.join( lines, SystemUtils.LINE_SEPARATOR );
     }
     finally
     {
@@ -199,11 +201,17 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
   {
     super.repair( c, driver );
 
-    // ggf. Foreign-Keys auf 'access_owner_id'-Feldern neu erzeugen
+    // recreate foreign keys
+    repairForeignKeys( c, driver );
+  }
+
+  private static void repairForeignKeys( Connection c, AbstractDbDriver driver ) throws SQLException
+  {
+    // recreate foreign keys for access_owner_id fields
     HSqlUtils.updateAccessOwnerForeignKey(
       c, HSqlDbHelloWorldHandler.TABLE_HELLOWORLD );
 
-    // ggf. Foreign-Keys auf 'access_group_id'-Feldern neu erzeugen
+    // recreate foreign keys for access_group_id fields
     HSqlUtils.updateAccessGroupForeignKey(
       c, HSqlDbHelloWorldHandler.TABLE_HELLOWORLD );
   }
@@ -223,27 +231,15 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
     }
 
     /**
-     * HSQL-spezifische Aktualisierungen an den Datenstrukturen des Addons.
-     * @param c
-     * @param dbDriver
-     * @param dbExtension
-     * @param oldDbVersion
-     * @param newDbVersion
-     * @throws SQLException
-     * @throws IOException
+     * Structural changes on a HSQL database occured for the HelloWorld addon.
      */
     @Override
     public void updateFinished( Connection c, AbstractDbDriver dbDriver, DbExtension dbExtension, long oldDbVersion, long newDbVersion ) throws SQLException, IOException
     {
       super.updateFinished( c, dbDriver, dbExtension, oldDbVersion, newDbVersion );
 
-      // ggf. Foreign-Keys auf 'access_owner_id'-Feldern neu erzeugen
-      HSqlUtils.updateAccessOwnerForeignKey(
-        c, HSqlDbHelloWorldHandler.TABLE_HELLOWORLD );
-
-      // ggf. Foreign-Keys auf 'access_group_id'-Feldern neu erzeugen
-      HSqlUtils.updateAccessGroupForeignKey(
-        c, HSqlDbHelloWorldHandler.TABLE_HELLOWORLD );
+      // recreate foreign keys
+      HSqlDbHelloWorldExtension.repairForeignKeys( c, dbDriver );
     }
   }
 }

@@ -21,7 +21,8 @@ import org.openestate.tool.helloworld.HelloWorldObjectViewPanel;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
 
 /**
- * ObjectViewExtension.
+ * An extension point, that adds custom features into
+ * {@link HelloWorldObjectViewPanel}.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

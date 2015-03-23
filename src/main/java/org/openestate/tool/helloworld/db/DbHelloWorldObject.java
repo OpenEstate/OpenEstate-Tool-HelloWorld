@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 
 /**
- * DbHelloWorldObject.
+ * An object, that is stored into the database for HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

@@ -19,7 +19,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * DbHelloWorldHandler.
+ * Specification of database operations for HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

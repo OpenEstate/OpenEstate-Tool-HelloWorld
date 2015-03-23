@@ -30,7 +30,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * HelloWorldObjectViewTask.
+ * Show form to create or edit an object of the HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -128,7 +128,7 @@ public class HelloWorldObjectViewTask extends ImmoToolTask<HelloWorldObjectViewP
   {
     super.failed( ex );
     ImmoToolUtils.showMessageErrorDialog(
-      "Can't load object!", ex, ImmoToolEnvironment.getFrame() );
+      I18N.tr( "Can't load object!" ), ex, ImmoToolEnvironment.getFrame() );
   }
 
   @Override

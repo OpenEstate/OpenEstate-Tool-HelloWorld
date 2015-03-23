@@ -23,7 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * HelloWorldProjectExtension.
+ * Integrate HelloWorld addon into the project loading sequence.
+ * <p>
+ * This extensions adds functions, that are called when a project is closed /
+ * opened / cleaned / repaired.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -41,6 +44,8 @@ public class HelloWorldProjectExtension extends ProjectAdapter
   public void close( ImmoToolProject project ) throws ImmoToolException
   {
     LOGGER.debug( "close project..." );
+
+    // unregister the database extension, when the project is closed
     HelloWorldPlugin.setDbHelloWorldExtension( null );
   }
 
@@ -49,8 +54,7 @@ public class HelloWorldProjectExtension extends ProjectAdapter
   {
     LOGGER.debug( "open project..." );
 
-    // DbHelloWorldExtension registrieren
-    LOGGER.debug( "Register DbHelloWorldExtension" );
+    // register the database extension, when the project is loaded
     DbHelloWorldExtension dbHelloWorldExtension = HelloWorldPluginUtils.getDbHelloWorldExtension( project );
     if (dbHelloWorldExtension==null) throw new ImmoToolException( "Can't find a usable DbHelloWorldExtension!" );
     HelloWorldPlugin.setDbHelloWorldExtension( dbHelloWorldExtension );

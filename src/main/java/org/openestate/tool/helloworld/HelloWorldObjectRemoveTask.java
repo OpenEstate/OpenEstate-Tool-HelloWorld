@@ -26,7 +26,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * HelloWorldObjectRemoveTask.
+ * Remove an object of the HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

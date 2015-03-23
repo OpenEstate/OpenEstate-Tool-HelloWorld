@@ -23,7 +23,7 @@ import java.util.Locale;
 import org.xnap.commons.i18n.I18n;
 
 /**
- * HelloWorldPermission.
+ * Permissions of the HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

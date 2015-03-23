@@ -22,7 +22,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * DbHelloWorldUpdateListener.
+ * A listener on the update process for HelloWorld addon.
+ * <p>
+ * This listener may execute specific code on database updates by the HelloWorld
+ * addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

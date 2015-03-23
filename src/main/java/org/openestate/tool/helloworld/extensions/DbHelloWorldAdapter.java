@@ -24,7 +24,10 @@ import org.apache.commons.lang.ArrayUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 
 /**
- * DbHelloWorldAdapter.
+ * A general extension, that provides database access for HelloWorld addon.
+ * <p>
+ * This class may be extended for any database backend, that is supported by
+ * this addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

@@ -45,7 +45,10 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * HelloWorldFrameSidebarExtension.
+ * Integrate HelloWorld addon into the applications sidebar.
+ * <p>
+ * This extensions integrates a separate sidebar for the addon into the
+ * application.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -93,11 +96,12 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
   @Override
   public JComponent createComponent()
   {
+    // create the component, that is shown in the sidebar
     final HelloWorldList list = new HelloWorldList();
     list.setModel( createListModel() );
     list.setCellRenderer( new HelloWorldListRenderer() );
 
-    // keyboard events
+    // register keyboard events
     list.addKeyListener( new KeyAdapter()
     {
       @Override
@@ -105,7 +109,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
       {
         if (!list.isEnabled()) return;
 
-        // Enter wurde eingegeben
+        // ENTER was pressed
         if (e.getKeyCode()==KeyEvent.VK_ENTER)
         {
           DbHelloWorldObject object = (DbHelloWorldObject) list.getSelectedValue();
@@ -115,7 +119,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
       }
     } );
 
-    // mouse events
+    // register mouse events
     list.addMouseListener( new MouseAdapter()
     {
       @Override
@@ -123,20 +127,20 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
       {
         if (!list.isEnabled()) return;
 
-        // Einzelklick mit rechter Maustaste
-        if ( e.getButton()==MouseEvent.BUTTON3 && e.getClickCount()==1 )
+        // single click with the right mouse button
+        if (e.getButton()==MouseEvent.BUTTON3 && e.getClickCount()==1)
         {
-          // Auswahl an der geklickten Stelle
+          // fetch the clicked element
           int index = list.locationToIndex( e.getPoint() );
           if (index>=0) list.setSelectedIndex( index );
 
-          // Aktionsmenü erzeugen und anzeigen
+          // show popup menu with further actions
           DbHelloWorldObject object = (DbHelloWorldObject) list.getSelectedValue();
           JPopupMenu popup = createActionMenu( object );
           if (popup!=null) popup.show( list, e.getPoint().x, e.getPoint().y );
         }
 
-        // Doppelklick mit linker Maustaste
+        // double click with the left mouse button
         else if (e.getButton()==MouseEvent.BUTTON1 && e.getClickCount()==2)
         {
           DbHelloWorldObject object = (DbHelloWorldObject) list.getSelectedValue();
@@ -161,7 +165,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
     }
     catch (Exception ex)
     {
-      LOGGER.error( "Can't load syndication feeds!" );
+      LOGGER.error( "Can't load objects into sidebar!" );
       LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
       return null;
     }
@@ -258,25 +262,24 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
       if (object.id<1) throw new IllegalArgumentException( "An unsaved object was provided!" );
       DefaultListModel model = (DefaultListModel) getModel();
 
-      // Aktualisierung eines bereits existierenden Objektes
+      // update existing list entry with the same object id
       for (int i=0; i<model.getSize(); i++)
       {
         DbHelloWorldObject obj = (DbHelloWorldObject) model.get( i );
         if (obj!=null && obj.id==object.id)
         {
           model.setElementAt( object, i );
-          //model.nodeChanged( childNode );
           return;
         }
       }
 
-      // Objekt neu hinzufügen
+      // add a new object to the list
       model.addElement( object );
     }
 
     public boolean removeObject( long objectId )
     {
-      if (objectId<1) throw new IllegalArgumentException( "An invalid feed-id was provided!" );
+      if (objectId<1) throw new IllegalArgumentException( "An invalid object id was provided!" );
       DefaultListModel model = (DefaultListModel) getModel();
       for (int i=0; i<model.getSize(); i++)
       {

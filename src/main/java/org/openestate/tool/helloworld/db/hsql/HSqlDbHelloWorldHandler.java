@@ -29,17 +29,15 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandlerImpl;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * HSqlDbHelloWorldHandler.
+ * Implementation of database operations on a HSQL database.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
 public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl
 {
-  private final static Logger LOGGER = LoggerFactory.getLogger( HSqlDbHelloWorldHandler.class );
+  //private final static Logger LOGGER = LoggerFactory.getLogger( HSqlDbHelloWorldHandler.class );
   public final static String PROC_REMOVE_HELLOWORLD = "remove_immotool_helloworld";
   public final static String PROC_SAVE_HELLOWORLD = "save_immotool_helloworld";
   public final static String VIEW_HELLOWORLD = "view_immotool_helloworld";

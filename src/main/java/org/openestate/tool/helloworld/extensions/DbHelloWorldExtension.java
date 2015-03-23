@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 
 /**
- * DbHelloWorldExtension.
+ * An extension point, that provides database access for HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

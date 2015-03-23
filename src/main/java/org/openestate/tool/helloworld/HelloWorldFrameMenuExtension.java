@@ -20,7 +20,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
- * HelloWorldFrameMenuExtension.
+ * Integrate HelloWorld addon into the applications main menu.
+ * <p>
+ * This extensions integrates a separate menu for the addon into the
+ * applications main menu.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

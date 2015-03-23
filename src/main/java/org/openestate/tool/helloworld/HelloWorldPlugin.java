@@ -49,7 +49,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * HelloWorldPlugin.
+ * Base class of the HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -307,7 +307,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin
     @Override
     protected final void updateLocalization()
     {
-      if (objectId<1)
+      if (ObjectFormAction.this.objectId<1)
       {
         ObjectFormAction.this.setName( StringUtils.capitalize(
           I18N.tr( "new object" ) ) );
@@ -360,7 +360,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin
   }
 
   /**
-   * Refresh HelloWorld view in sidebar.
+   * Refresh view in the sidebar.
    */
   public final static class SidebarRefreshAction extends AbstractI18nAction
   {
@@ -452,7 +452,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin
   }
 
   /**
-   * Show HelloWorld view in sidebar.
+   * Show view in sidebar.
    */
   public final static class SidebarSelectAction extends AbstractI18nAction
   {

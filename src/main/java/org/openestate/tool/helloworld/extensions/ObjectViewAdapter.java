@@ -20,14 +20,16 @@ import org.openestate.tool.helloworld.HelloWorldObjectViewPanel;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
 
 /**
- * ObjectViewAdapter.
+ * A general extension, that adds custom features into
+ * {@link HelloWorldObjectViewPanel}.
+ * <p>
+ * This class may be extended for custom tabs or actions in the
+ * {@link HelloWorldObjectViewPanel}.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
 public abstract class ObjectViewAdapter implements ObjectViewExtension
 {
-  //private final static Logger LOGGER = LoggerFactory.getLogger( ObjectViewAdapter.class );
-
   @Override
   public JMenuItem[] createActionMenuItems( DbHelloWorldObject object )
   {

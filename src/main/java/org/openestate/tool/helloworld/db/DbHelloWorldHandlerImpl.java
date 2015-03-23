@@ -19,7 +19,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * DbHelloWorldHandlerImpl.
+ * General implementation of database operations for HelloWorld addon.
+ * <p>
+ * This class may be extended for database specific implementations.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */

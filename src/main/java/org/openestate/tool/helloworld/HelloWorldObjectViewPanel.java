@@ -64,7 +64,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * HelloWorldObjectViewPanel.
+ * Form to create or edit an object of the HelloWorld addon.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
@@ -181,10 +181,10 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
       return;
     }
 
-    // Validierung der eingehangenen Formulare
+    // validate tabs
     if (!validateTabs()) return;
 
-    // Task zum Speichern der Eingaben ausführen
+    // start task, that copies the current object
     setButtonsEnabled( false );
     ImmoToolUtils.executeTask( new SubmitTask( getTabs(), true ) );
   }
@@ -219,6 +219,16 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   }
 
   @Override
+  public void doRefresh()
+  {
+    if (currentObject!=null && currentObject.id>0)
+    {
+      setObject( currentObject );
+      loadInBackground( ImmoToolProject.getAppInstance().getDbDriver() );
+    }
+  }
+
+  @Override
   protected void doRemove()
   {
     if (currentObject==null || currentObject.id<1)
@@ -233,6 +243,8 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
     boolean canDelete = ImmoToolUtils.showQuestionDialog(
       I18N.tr( "Do you really want to remove object {0}?", "#" + currentObject.id ), this );
     if (!canDelete) return;
+
+    // start task, that removes the current object
     setButtonsEnabled( false );
     ImmoToolUtils.executeTask( new RemoveTask( currentObject.id ) );
   }
@@ -275,10 +287,10 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
       return;
     }
 
-    // Validierung der eingehangenen Formulare
+    // validate tabs
     if (!validateTabs()) return;
 
-    // Task zum Speichern der Eingaben ausführen
+    // start task, that saves the current object
     setButtonsEnabled( false );
     ImmoToolUtils.executeTask( new SubmitTask( getTabs(), false ) );
   }
@@ -286,6 +298,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   @Override
   protected void doViewNext()
   {
+    // start task, that loads the next object into the current form
     if (nextObjectId>0)
     {
       setButtonsEnabled( false );
@@ -297,18 +310,13 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   @Override
   protected void doViewPrevious()
   {
+    // start task, that loads the previous object into the current form
     if (prevObjectId>0)
     {
       setButtonsEnabled( false );
       ImmoToolUtils.executeTask( new HelloWorldObjectViewTask(
         ImmoToolProject.getAppInstance().getDbDriver(), prevObjectId, this ) );
     }
-  }
-
-  @Override
-  public void doRefresh()
-  {
-    throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
   }
 
   public long getCurrentObjectId()
@@ -373,15 +381,15 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   @Override
   protected boolean isLoadedInBackground()
   {
-    // Berechtigungen müssen nur geladen werden,
-    // wenn eine Objekt bearbeitet wird.
+    // we only must load the form in background,
+    // if the current object is not new
     return currentObject!=null && currentObject.id>0;
   }
 
   @Override
   protected void setButtonsEnabled( boolean enabled )
   {
-    super.setButtonsEnabled( enabled ); //To change body of generated methods, choose Tools | Templates.
+    super.setButtonsEnabled( enabled );
     submitAction.setEnabled( enabled && mayEditObject );
     closeAction.setEnabled( enabled );
     helpAction.setEnabled( enabled );
@@ -454,7 +462,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   public static abstract class AbstractTab extends AbstractMainViewTab
   {
     private WeakReference<HelloWorldObjectViewPanel> viewPanel = null;
-    private List<String> saveWarnings = new ArrayList<String>();
+    private final List<String> saveWarnings = new ArrayList<String>();
 
     protected final void addSaveWarning( String msg )
     {
@@ -622,13 +630,13 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
 
     private void build()
     {
-      // Formular erzeugen
+      // create form
       PermissionsTab.this.form = new ImmoToolPermissionPanel();
       PermissionsTab.this.form.setBorder( Borders.DIALOG );
       JScrollPane scroller = new JScrollPane( PermissionsTab.this.form );
       scroller.setBorder( Borders.EMPTY );
 
-      // Panel erzeugen
+      // attach form to the panel
       PermissionsTab.this.setLayout( new BorderLayout( 5, 5 ) );
       PermissionsTab.this.setBorder( Borders.EMPTY );
       PermissionsTab.this.add( scroller, BorderLayout.CENTER );
@@ -657,11 +665,11 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
             currentUser.id, 0, null );
         }
 
-        // Berechtigungen laden
+        // load permissions
         PermissionsTab.this.form.load(
           c, dbExtension.getUserHandler(), currentUser, dbExtension.getBaseGroupName() );
 
-        // Verarbeitung abschließen
+        // permissions were successfully loaded
         PermissionsTab.this.loaded = true;
       }
       catch (Exception ex)
@@ -735,7 +743,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   {
     private final AbstractMainViewTab[] tabs;
     private final boolean saveAsCopy;
-    private List<String> warnings = new ArrayList<String>();
+    private final List<String> warnings = new ArrayList<String>();
 
     public SubmitTask( AbstractMainViewTab[] tabs, boolean saveAsCopy )
     {
@@ -755,7 +763,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
       {
         c = project.getDbConnection();
 
-        // Eintrag ermitteln
+        // load current object from database
         DbHelloWorldObject object = null;
         long currentObjectId = HelloWorldObjectViewPanel.this.getCurrentObjectId();
         if (currentObjectId<1 || SubmitTask.this.saveAsCopy)
@@ -768,7 +776,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
           if (object==null) throw new Exception( "Can't load object #" + currentObjectId + "!" );
         }
 
-        // Änderungen übernehmen
+        // add changes into the object
         for (AbstractMainViewTab tab : SubmitTask.this.tabs)
         {
           if (tab instanceof AbstractTab)
@@ -778,10 +786,10 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
           }
         }
 
-        // Eintrag speichern
+        // save the object
         dbHandler.saveObject( c, object );
 
-        // ggf. weitere Speicherungen der Addons ausführen
+        // do some further actions, after the object was initially saved
         for (AbstractMainViewTab tab : SubmitTask.this.tabs)
         {
           if (tab instanceof AbstractTab)
@@ -824,7 +832,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
       super.succeeded( object );
       if (object==null) return;
 
-      // ggf. nach der Speicherung die Warnungen als Balloon-Tip darstellen
+      // show warnings as balloon tip, that occured during the process
       if (!SubmitTask.this.warnings.isEmpty())
       {
         for (String msg : warnings)
@@ -834,12 +842,12 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
         }
       }
 
-      // gespeicherte Aktivität ins Formular übernehmen
+      // load saved object into the current form
       HelloWorldObjectViewPanel.this.setObject( object );
       HelloWorldObjectViewPanel.this.loadInBackground(
         ImmoToolProject.getAppInstance().getDbDriver() );
 
-      // refresh sidebar after an object was saved
+      // refresh sidebar after the object was saved
       HelloWorldPlugin.refreshSidebar();
     }
   }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+  <id>release</id>
+  <baseDirectory></baseDirectory>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>dir</format>
+    <format>zip</format>
+  </formats>
+  <dependencySets>
+
+    <!-- put this component into the plugins lib folder -->
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+      <useProjectArtifact>true</useProjectArtifact>
+      <includes>
+        <include>${project.groupId}:${project.artifactId}</include>
+      </includes>
+    </dependencySet>
+
+    <!-- put further dependencies into the plugins lib folder -->
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
+      <excludes>
+        <exclude>com.openindex.openestate.tool:*</exclude>
+        <exclude>com.google.code.findbugs:annotations</exclude>
+      </excludes>
+    </dependencySet>
+
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}/src/main/jpf</directory>
+      <outputDirectory></outputDirectory>
+      <fileMode>0644</fileMode>
+      <filtered>true</filtered>
+      <includes>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/src/main/jpf</directory>
+      <outputDirectory></outputDirectory>
+      <fileMode>0644</fileMode>
+      <filtered>false</filtered>
+      <excludes>
+        <exclude>**/*.xml</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+</assembly>

@@ -1,0 +1,6 @@
+<FindBugsFilter>
+  <Match>
+    <!-- ignore classes in FindBugs, that were automatically created via gettext -->
+    <Class name="~org\.openestate\.tool\.helloworld\.resources\.Messages_.*" />
+  </Match>
+</FindBugsFilter>

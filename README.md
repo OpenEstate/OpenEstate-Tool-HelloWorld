@@ -2,9 +2,19 @@ OpenEstate-Tool-HelloWorld 1.0-SNAPSHOT
 =======================================
 
 *OpenEstate-Tool-HelloWorld* is an addon for the freeware real estate software
-[*OpenEstate-ImmoTool*](http://openestate.org). This addon does not provide any
-functionality. Instead it provides a starting point for developers, who want to
-create custom addons for *OpenEstate-ImmoTool*.
+[*OpenEstate-ImmoTool*](http://openestate.org), that does not provide any
+features for end users. This addon
+
+-   is a starting point for developers, who want to create custom addons for
+    *OpenEstate-ImmoTool*.
+-   provides a build environment, that can easyliy be adapted for custom addons.
+-   illustrates how to extend main menu and sidebar.
+-   illustrates how to specify custom extension points.
+-   illustrates how to accomplish operations on a project database.
+-   illustrates how to implement a basic workflow on database objects (create,
+    update, remove).
+-   illustrates how to implement permissions on a multi user project.
+-   illustrates how to implement internationalization based on *GetText*.
 
 
 Dependencies

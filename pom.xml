@@ -41,6 +41,12 @@
     </developer>
   </developers>
 
+  <scm>
+    <connection>scm:git:https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld.git</connection>
+    <developerConnection>scm:git:[fetch=]https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld.git[push=]ssh://git@github.com:OpenEstate/OpenEstate-Tool-HelloWorld.git</developerConnection>
+    <url>https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld</url>
+  </scm>
+
   <properties>
     <project.apiVersion>2</project.apiVersion>
     <project.buildVersion>1.0-SNAPSHOT</project.buildVersion>

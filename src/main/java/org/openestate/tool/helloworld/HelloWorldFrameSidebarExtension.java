@@ -35,7 +35,7 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
@@ -80,7 +80,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter
     {
       String title = StringUtils.abbreviate( StringUtils.trimToEmpty( object.name ), 30 );
       popup.add( ImmoToolUtils.createMenuSeparator(
-        "<html>" + StringEscapeUtils.escapeHtml( title ) + "</html>" ) );
+        "<html>" + StringEscapeUtils.escapeHtml4( title ) + "</html>" ) );
 
       // add action into the popup menu for editing the selected object
       popup.add( new HelloWorldPlugin.ObjectFormAction( object.id ) );

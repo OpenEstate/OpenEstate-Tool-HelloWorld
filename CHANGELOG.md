@@ -2,6 +2,12 @@ Changelog for OpenEstate-Tool-HelloWorld
 ========================================
 
 
+1.0-SNAPSHOT (not released yet)
+-------------------------------
+
+...
+
+
 1.0-beta37 (23 Dec 2015)
 ------------------------
 

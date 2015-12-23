@@ -2,6 +2,12 @@ Changelog for OpenEstate-Tool-HelloWorld
 ========================================
 
 
+1.0-beta37 (23 Dec 2015)
+------------------------
+
+-   updated for *OpenEstate-ImmoTool* 1.0-beta37
+
+
 1.0-beta36 (11 Apr 2015)
 ------------------------
 

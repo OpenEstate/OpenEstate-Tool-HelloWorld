@@ -6,7 +6,7 @@
 
   <groupId>org.openestate.tool.plugins</groupId>
   <artifactId>OpenEstate-Tool-HelloWorld</artifactId>
-  <version>1.0-beta36</version>
+  <version>1.0-beta37</version>
   <packaging>jar</packaging>
 
   <name>OpenEstate-Tool-HelloWorld</name>
@@ -41,11 +41,17 @@
     </developer>
   </developers>
 
+  <scm>
+    <connection>scm:git:https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld.git</connection>
+    <developerConnection>scm:git:[fetch=]https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld.git[push=]ssh://git@github.com:OpenEstate/OpenEstate-Tool-HelloWorld.git</developerConnection>
+    <url>https://github.com/OpenEstate/OpenEstate-Tool-HelloWorld</url>
+  </scm>
+
   <properties>
     <project.apiVersion>2</project.apiVersion>
-    <project.buildVersion>1.0-beta36</project.buildVersion>
-    <project.pluginVersion>1.0.0.0-beta36</project.pluginVersion>
-    <project.immotoolVersion>1.0-beta36</project.immotoolVersion>
+    <project.buildVersion>1.0-beta37</project.buildVersion>
+    <project.pluginVersion>1.0.0.0-beta37</project.pluginVersion>
+    <project.immotoolVersion>1.0-beta37</project.immotoolVersion>
     <project.releaseDir>${project.basedir}/release</project.releaseDir>
     <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -158,7 +164,7 @@
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>annotations</artifactId>
-      <version>3.0.0</version>
+      <version>3.0.1u2</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
@@ -203,7 +209,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.6.1</version>
+        <version>3.0.0</version>
         <configuration>
           <failOnError>false</failOnError>
           <filesets>
@@ -236,7 +242,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.5.3</version>
+        <version>2.6</version>
         <configuration>
           <finalName>${project.artifactId}</finalName>
           <outputDirectory>${project.releaseDir}</outputDirectory>
@@ -276,7 +282,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.2</version>
+        <version>2.10.3</version>
         <configuration>
           <quiet>true</quiet>
           <outputDirectory>${project.javadocDir}</outputDirectory>
@@ -299,7 +305,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.3</version>
         <configuration>
           <failOnError>false</failOnError>
           <excludeFilterFile>${basedir}/findbugs-exclude.xml</excludeFilterFile>

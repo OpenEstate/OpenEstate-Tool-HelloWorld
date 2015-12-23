@@ -16,8 +16,7 @@
 package org.openestate.tool.helloworld;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.factories.Paddings;
 import com.openindex.openestate.impl.db.JdbcUtils;
 import com.openindex.openestate.tool.ImmoToolAppUtils;
 import com.openindex.openestate.tool.ImmoToolEnvironment;
@@ -31,6 +30,7 @@ import com.openindex.openestate.tool.extensions.DbExtension;
 import com.openindex.openestate.tool.gui.AbstractI18nAction;
 import com.openindex.openestate.tool.gui.AbstractMainView;
 import com.openindex.openestate.tool.gui.AbstractMainViewTab;
+import com.openindex.openestate.tool.gui.DefaultFormBuilder;
 import com.openindex.openestate.tool.utils.StatusNotification;
 import com.openindex.openestate.tool.utils.forms.ValidationHandler;
 import java.awt.BorderLayout;
@@ -523,18 +523,15 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
       RTextScrollPane notesScroller = new RTextScrollPane( FormTab.this.notesField );
 
       // create form
-      DefaultFormBuilder builder = ImmoToolUtils.createFormBuilder(
-        "right:pref, 3dlu, pref:grow" );
-      builder.append( FormTab.this.formTitle, 3 );
-      builder.nextLine();
-      builder.append( FormTab.this.nameLabel, FormTab.this.nameField );
-      builder.nextLine();
-      builder.append( FormTab.this.notesTitle, 3 );
-      builder.nextLine();
+      DefaultFormBuilder builder = DefaultFormBuilder.create( "right:pref, 3dlu, pref:grow" );
+      builder.add( FormTab.this.formTitle ).xyw( 1, builder.nextRow(), 3 );
+      builder.add( FormTab.this.nameLabel ).xy( 1, builder.nextRow() );
+      builder.add( FormTab.this.nameField ).xy( 3, builder.row() );
+      builder.add( FormTab.this.notesTitle ).xyw( 1, builder.nextRow(), 3 );
 
       // build panel
       FormTab.this.setLayout( new BorderLayout( 10, 10 ) );
-      FormTab.this.setBorder( Borders.DIALOG );
+      FormTab.this.setBorder( Paddings.DIALOG );
       add( builder.getPanel(), BorderLayout.NORTH );
       add( notesScroller, BorderLayout.CENTER );
     }
@@ -632,13 +629,13 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
     {
       // create form
       PermissionsTab.this.form = new ImmoToolPermissionPanel();
-      PermissionsTab.this.form.setBorder( Borders.DIALOG );
+      PermissionsTab.this.form.setBorder( Paddings.DIALOG );
       JScrollPane scroller = new JScrollPane( PermissionsTab.this.form );
-      scroller.setBorder( Borders.EMPTY );
+      scroller.setBorder( Paddings.EMPTY );
 
       // attach form to the panel
       PermissionsTab.this.setLayout( new BorderLayout( 5, 5 ) );
-      PermissionsTab.this.setBorder( Borders.EMPTY );
+      PermissionsTab.this.setBorder( Paddings.EMPTY );
       PermissionsTab.this.add( scroller, BorderLayout.CENTER );
     }
 

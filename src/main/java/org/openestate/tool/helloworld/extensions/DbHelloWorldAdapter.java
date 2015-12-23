@@ -20,7 +20,7 @@ import com.openindex.openestate.tool.db.DbUpdateHandler;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 
 /**

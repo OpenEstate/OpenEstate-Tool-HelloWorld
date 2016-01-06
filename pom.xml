@@ -59,6 +59,17 @@
 
   <repositories>
 
+    <!-- Repository for snapshot builds of OpenEstate-IO & OpenEstate-IS24-REST -->
+    <repository>
+      <id>ossrh</id>
+      <name>Open Source Project Repository Hosting</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+    </repository>
+
     <!-- Repository for OpenEstate-ImmoTool -->
     <repository>
       <id>openestate</id>
@@ -77,28 +88,7 @@
       </snapshots>
     </repository>
 
-    <!-- Repository for gettext-commons -->
-    <repository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-    </repository>
-
   </repositories>
-  <pluginRepositories>
-
-    <!-- Plugin Repository for gettext-commons -->
-    <pluginRepository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-    </pluginRepository>
-
-  </pluginRepositories>
 
   <dependencies>
 
@@ -314,9 +304,9 @@
 
       <!-- gettext / http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html -->
       <plugin>
-        <groupId>org.xnap.commons</groupId>
-        <artifactId>maven-gettext-plugin</artifactId>
-        <version>1.2.3</version>
+        <groupId>com.googlecode.gettext-commons</groupId>
+        <artifactId>gettext-maven-plugin</artifactId>
+        <version>1.2.4</version>
         <configuration>
           <targetBundle>org.openestate.tool.helloworld.resources.Messages</targetBundle>
           <poDirectory>${project.basedir}/src/main/i18n</poDirectory>

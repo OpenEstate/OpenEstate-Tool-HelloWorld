@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- schema for HSQLDB
--- Copyright (C) 2012-2015 OpenEstate.org
+-- Copyright (C) 2012-2016 OpenEstate.org
 -- -----------------------------------------------------
 
 CREATE SEQUENCE seq_immotool_helloworld

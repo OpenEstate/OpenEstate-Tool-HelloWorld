@@ -6,7 +6,7 @@
 
   <groupId>org.openestate.tool.plugins</groupId>
   <artifactId>OpenEstate-Tool-HelloWorld</artifactId>
-  <version>1.0-beta37</version>
+  <version>1.0-beta38</version>
   <packaging>jar</packaging>
 
   <name>OpenEstate-Tool-HelloWorld</name>
@@ -49,15 +49,26 @@
 
   <properties>
     <project.apiVersion>2</project.apiVersion>
-    <project.buildVersion>1.0-beta37</project.buildVersion>
-    <project.pluginVersion>1.0.0.0-beta37</project.pluginVersion>
-    <project.immotoolVersion>1.0-beta37</project.immotoolVersion>
+    <project.buildVersion>1.0-beta38</project.buildVersion>
+    <project.pluginVersion>1.0.0.0-beta38</project.pluginVersion>
+    <project.immotoolVersion>1.0-beta38</project.immotoolVersion>
     <project.releaseDir>${project.basedir}/release</project.releaseDir>
     <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <repositories>
+
+    <!-- Repository for snapshot builds of OpenEstate-IO & OpenEstate-IS24-REST -->
+    <repository>
+      <id>ossrh</id>
+      <name>Open Source Project Repository Hosting</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
+    </repository>
 
     <!-- Repository for OpenEstate-ImmoTool -->
     <repository>
@@ -77,28 +88,7 @@
       </snapshots>
     </repository>
 
-    <!-- Repository for gettext-commons -->
-    <repository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-    </repository>
-
   </repositories>
-  <pluginRepositories>
-
-    <!-- Plugin Repository for gettext-commons -->
-    <pluginRepository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-    </pluginRepository>
-
-  </pluginRepositories>
 
   <dependencies>
 
@@ -238,31 +228,6 @@
         </configuration>
       </plugin>
 
-      <!-- assembly -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <finalName>${project.artifactId}</finalName>
-          <outputDirectory>${project.releaseDir}</outputDirectory>
-          <appendAssemblyId>false</appendAssemblyId>
-          <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-          <descriptors>
-            <descriptor>assembly.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- source -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -301,6 +266,31 @@
         </executions>
       </plugin>
 
+      <!-- assembly -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <finalName>${project.artifactId}</finalName>
+          <outputDirectory>${project.releaseDir}</outputDirectory>
+          <appendAssemblyId>false</appendAssemblyId>
+          <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+          <descriptors>
+            <descriptor>assembly.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- findbugs -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -314,9 +304,9 @@
 
       <!-- gettext / http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html -->
       <plugin>
-        <groupId>org.xnap.commons</groupId>
-        <artifactId>maven-gettext-plugin</artifactId>
-        <version>1.2.3</version>
+        <groupId>com.googlecode.gettext-commons</groupId>
+        <artifactId>gettext-maven-plugin</artifactId>
+        <version>1.2.4</version>
         <configuration>
           <targetBundle>org.openestate.tool.helloworld.resources.Messages</targetBundle>
           <poDirectory>${project.basedir}/src/main/i18n</poDirectory>

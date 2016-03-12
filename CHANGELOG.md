@@ -2,10 +2,11 @@ Changelog for OpenEstate-Tool-HelloWorld
 ========================================
 
 
-1.0-SNAPSHOT (not released yet)
--------------------------------
+1.0-beta38 (12 Mar 2016)
+------------------------
 
-...
+-   updated for *OpenEstate-ImmoTool* 1.0-beta38
+-   updated `gettext-commons` library to version 0.9.8
 
 
 1.0-beta37 (23 Dec 2015)

@@ -1,5 +1,5 @@
-OpenEstate-Tool-HelloWorld 1.0-SNAPSHOT
-=======================================
+OpenEstate-Tool-HelloWorld 1.0-beta40
+=====================================
 
 *OpenEstate-Tool-HelloWorld* is an addon for the freeware real estate software
 [*OpenEstate-ImmoTool*](http://openestate.org), that does not provide any
@@ -21,14 +21,14 @@ features for end users. Instead this addon
 Dependencies
 ------------
 
--   *Java* 6 or newer (*Oracle Java* or *OpenJDK*)
--   *OpenEstate-ImmoTool* 1.0-SNAPSHOT (including its dependencies)
+-   *Java* 7 or newer (*Oracle Java* or *OpenJDK*)
+-   *OpenEstate-ImmoTool* 1.0-beta40 (including its dependencies)
 
 
 Requirements for developers
 ---------------------------
 
--   *Java Development Kit* (JDK) 6 or newer
+-   *Java Development Kit* (JDK) 7 or newer
     -   *Oracle JDK* and *OpenJDK* are known to work
 -   *Netbeans* 8 (recommended but not required)
     -   Other IDE's like *Eclipse* or *IntelliJ* should also work. But we can't

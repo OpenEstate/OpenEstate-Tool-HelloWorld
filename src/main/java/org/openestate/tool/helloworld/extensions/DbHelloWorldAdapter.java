@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * A general extension, that provides database access for HelloWorld addon.
@@ -33,6 +37,9 @@ import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
  */
 public abstract class DbHelloWorldAdapter implements DbHelloWorldExtension
 {
+  private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldAdapter.class );
+  private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldAdapter.class );
+
   @Override
   public abstract DbHelloWorldHandler getHelloWorldHandler();
 

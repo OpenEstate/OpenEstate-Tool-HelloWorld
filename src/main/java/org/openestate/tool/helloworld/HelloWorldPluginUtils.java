@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,8 @@ import org.openestate.tool.helloworld.extensions.DbHelloWorldExtension;
 import org.openestate.tool.helloworld.extensions.ObjectViewExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Helper functions of the HelloWorld addon.
@@ -38,6 +40,12 @@ import org.slf4j.LoggerFactory;
 public class HelloWorldPluginUtils
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldPluginUtils.class );
+  private final static I18n I18N = I18nFactory.getI18n( HelloWorldPluginUtils.class );
+
+  private HelloWorldPluginUtils()
+  {
+    super();
+  }
 
   public static DbHelloWorldExtension getDbHelloWorldExtension( ImmoToolProject project )
   {
@@ -61,7 +69,7 @@ public class HelloWorldPluginUtils
 
   public static Collection<DbHelloWorldExtension> getDbHelloWorldExtensions()
   {
-    List<DbHelloWorldExtension> extensions = new ArrayList<DbHelloWorldExtension>();
+    List<DbHelloWorldExtension> extensions = new ArrayList<>();
     for (Object ext : getExtensionHandlers( DbHelloWorldExtension.ID, DbHelloWorldExtension.class, null, null ))
     {
       extensions.add( (DbHelloWorldExtension) ext );
@@ -71,7 +79,7 @@ public class HelloWorldPluginUtils
 
   private static Collection<Object> getExtensionHandlers( String extensionName, Class handlerClass, ImmoToolProject project, String[] pluginIds )
   {
-    List<Object> handlers = new ArrayList<Object>();
+    List<Object> handlers = new ArrayList<>();
     ExtensionPoint point = getExtensionPoint( extensionName );
     if (point==null)
     {
@@ -126,7 +134,7 @@ public class HelloWorldPluginUtils
   public static Collection<ObjectViewExtension> getObjectViewExtensions()
   {
     final ImmoToolProject project = ImmoToolProject.getAppInstance();
-    List<ObjectViewExtension> extensions = new ArrayList<ObjectViewExtension>();
+    List<ObjectViewExtension> extensions = new ArrayList<>();
     for (Object ext : getExtensionHandlers( ObjectViewExtension.ID, ObjectViewExtension.class, project, null ))
     {
       extensions.add( (ObjectViewExtension) ext );

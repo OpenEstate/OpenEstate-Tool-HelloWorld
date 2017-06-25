@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -363,7 +363,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
     super.init();
 
     // load addons
-    addons = new ArrayList<ObjectViewExtension>();
+    addons = new ArrayList<>();
     try
     {
       for (ObjectViewExtension addon : HelloWorldPluginUtils.getObjectViewExtensions())
@@ -462,7 +462,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   public static abstract class AbstractTab extends AbstractMainViewTab
   {
     private WeakReference<HelloWorldObjectViewPanel> viewPanel = null;
-    private final List<String> saveWarnings = new ArrayList<String>();
+    private final List<String> saveWarnings = new ArrayList<>();
 
     protected final void addSaveWarning( String msg )
     {
@@ -486,7 +486,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
     public void setViewPanel( HelloWorldObjectViewPanel viewPanel )
     {
       AbstractTab.this.viewPanel = (viewPanel!=null)?
-        new WeakReference<HelloWorldObjectViewPanel>( viewPanel ): null;
+        new WeakReference<>( viewPanel ): null;
     }
   }
 
@@ -740,7 +740,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
   {
     private final AbstractMainViewTab[] tabs;
     private final boolean saveAsCopy;
-    private final List<String> warnings = new ArrayList<String>();
+    private final List<String> warnings = new ArrayList<>();
 
     public SubmitTask( AbstractMainViewTab[] tabs, boolean saveAsCopy )
     {
@@ -761,8 +761,8 @@ public class HelloWorldObjectViewPanel extends AbstractMainView
         c = project.getDbConnection();
 
         // load current object from database
-        DbHelloWorldObject object = null;
-        long currentObjectId = HelloWorldObjectViewPanel.this.getCurrentObjectId();
+        final DbHelloWorldObject object;
+        final long currentObjectId = HelloWorldObjectViewPanel.this.getCurrentObjectId();
         if (currentObjectId<1 || SubmitTask.this.saveAsCopy)
         {
           object = new DbHelloWorldObject();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@ package org.openestate.tool.helloworld.db;
 import com.openindex.openestate.tool.utils.Permission;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * An object, that is stored into the database for HelloWorld addon.
@@ -29,6 +33,8 @@ import java.util.Date;
   justification = "Public fields are kept for compatibility with the database model.")
 public class DbHelloWorldObject
 {
+  private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldObject.class );
+  private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldObject.class );
   public long id = 0;
   public String name = null;
   public String notes = null;

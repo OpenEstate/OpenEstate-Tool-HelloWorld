@@ -17,6 +17,7 @@ package org.openestate.tool.helloworld.db;
 
 import com.openindex.openestate.tool.utils.Permission;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.Serializable;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ import org.xnap.commons.i18n.I18nFactory;
 @SuppressFBWarnings(
   value = "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD",
   justification = "Public fields are kept for compatibility with the database model.")
-public class DbHelloWorldObject
+public class DbHelloWorldObject implements Serializable
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldObject.class );
   private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldObject.class );

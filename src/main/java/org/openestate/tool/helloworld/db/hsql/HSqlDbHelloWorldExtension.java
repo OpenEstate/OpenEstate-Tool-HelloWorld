@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ import java.sql.Statement;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hsqldb.cmdline.SqlFile;
 import org.hsqldb.cmdline.SqlToolError;
@@ -43,6 +42,8 @@ import org.openestate.tool.helloworld.db.DbHelloWorldUpdateListener;
 import org.openestate.tool.helloworld.extensions.DbHelloWorldAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Implementation of database access on a HSQL database.
@@ -52,6 +53,7 @@ import org.slf4j.LoggerFactory;
 public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( HSqlDbHelloWorldExtension.class );
+  private final static I18n I18N = I18nFactory.getI18n( HSqlDbHelloWorldExtension.class );
   public final static String RESOURCE_PATH = "/org/openestate/tool/helloworld/db/hsql/resources/";
   private final static DbHelloWorldHandler HELLO_WORLD_HANDLER = new HSqlDbHelloWorldHandler();
 
@@ -154,7 +156,6 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
 
   private static SqlFile readHsqlFile( String file ) throws IOException
   {
-    File tempFile = null;
     InputStream input = null;
     try
     {
@@ -164,7 +165,7 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
       List<String> lines = IOUtils.readLines( input, "UTF-8" );
 
       // write query into a temporary file
-      tempFile = File.createTempFile( "helloworld.", ".sql" );
+      File tempFile = File.createTempFile( "helloworld.", ".sql" );
       tempFile.deleteOnExit();
       FileUtils.writeLines( tempFile, lines );
 
@@ -188,7 +189,7 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter
       List<String> lines = IOUtils.readLines( input, "UTF-8" );
 
       // return query
-      return StringUtils.join( lines, SystemUtils.LINE_SEPARATOR );
+      return StringUtils.join( lines, System.lineSeparator() );
     }
     finally
     {

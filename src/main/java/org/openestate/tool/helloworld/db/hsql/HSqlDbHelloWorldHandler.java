@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,10 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandlerImpl;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Implementation of database operations on a HSQL database.
@@ -37,7 +41,8 @@ import org.openestate.tool.helloworld.db.DbHelloWorldObject;
  */
 public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl
 {
-  //private final static Logger LOGGER = LoggerFactory.getLogger( HSqlDbHelloWorldHandler.class );
+  private final static Logger LOGGER = LoggerFactory.getLogger( HSqlDbHelloWorldHandler.class );
+  private final static I18n I18N = I18nFactory.getI18n( HSqlDbHelloWorldHandler.class );
   public final static String PROC_REMOVE_HELLOWORLD = "remove_immotool_helloworld";
   public final static String PROC_SAVE_HELLOWORLD = "save_immotool_helloworld";
   public final static String VIEW_HELLOWORLD = "view_immotool_helloworld";
@@ -86,10 +91,13 @@ public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl
           + "WHERE " + FIELD_HELLOWORLD_ID + " IN (" + JdbcUtils.writeQuestionMarkList( ids.length ) + ") "
           + "ORDER BY " + FIELD_HELLOWORLD_NAME + " ASC "
           + "LIMIT " + ids.length + ";" );
-        for (int i=0; i<ids.length; i++) statement.setLong( i+1, ids[i] );
+        for (int i=0; i<ids.length; i++)
+        {
+          statement.setLong( i+1, ids[i] );
+        }
       }
       result = statement.executeQuery();
-      List<DbHelloWorldObject> objects = new ArrayList<DbHelloWorldObject>();
+      List<DbHelloWorldObject> objects = new ArrayList<>();
       while (result.next())
       {
         objects.add( buildObject( result ) );
@@ -114,7 +122,7 @@ public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl
         + "FROM " + VIEW_HELLOWORLD + " "
         + "ORDER BY " + FIELD_HELLOWORLD_ID + " ASC;" );
       result = statement.executeQuery();
-      List<Long> ids = new ArrayList<Long>();
+      List<Long> ids = new ArrayList<>();
       while (result.next())
       {
         ids.add( result.getLong( FIELD_HELLOWORLD_ID ) );
@@ -148,7 +156,7 @@ public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl
     }
     catch (SQLException ex )
     {
-      if (c!=null) c.rollback();
+      c.rollback();
       throw ex;
     }
     finally

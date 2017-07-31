@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@ package org.openestate.tool.helloworld;
 import com.openindex.openestate.tool.extensions.FrameMenuAdapter;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Integrate HelloWorld addon into the applications main menu.
@@ -29,6 +33,9 @@ import javax.swing.JMenuItem;
  */
 public class HelloWorldFrameMenuExtension extends FrameMenuAdapter
 {
+  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldFrameMenuExtension.class );
+  private final static I18n I18N = I18nFactory.getI18n( HelloWorldFrameMenuExtension.class );
+
   @Override
   public JMenu createMainMenu()
   {

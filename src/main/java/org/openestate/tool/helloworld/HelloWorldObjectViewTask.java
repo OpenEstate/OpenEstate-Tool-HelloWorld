@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import com.openindex.openestate.tool.gui.AbstractMainTab;
 import java.sql.Connection;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
@@ -36,7 +38,7 @@ import org.xnap.commons.i18n.I18nFactory;
  */
 public class HelloWorldObjectViewTask extends ImmoToolTask<HelloWorldObjectViewPanel, Void>
 {
-  //private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldObjectViewTask.class );
+  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldObjectViewTask.class );
   private final static I18n I18N = I18nFactory.getI18n( HelloWorldObjectViewTask.class );
   private final long objectId;
   private final boolean selectCreatedTab;

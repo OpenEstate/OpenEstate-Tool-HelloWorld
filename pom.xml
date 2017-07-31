@@ -6,7 +6,7 @@
 
   <groupId>org.openestate.tool.plugins</groupId>
   <artifactId>OpenEstate-Tool-HelloWorld</artifactId>
-  <version>1.0-beta40</version>
+  <version>1.0-beta42</version>
   <packaging>jar</packaging>
 
   <name>OpenEstate-Tool-HelloWorld</name>
@@ -49,9 +49,9 @@
 
   <properties>
     <project.apiVersion>2</project.apiVersion>
-    <project.buildVersion>1.0-beta40</project.buildVersion>
-    <project.pluginVersion>1.0.0.0-beta40</project.pluginVersion>
-    <project.immotoolVersion>1.0-beta40</project.immotoolVersion>
+    <project.buildVersion>1.0-beta42</project.buildVersion>
+    <project.pluginVersion>1.0.0.0-beta42</project.pluginVersion>
+    <project.immotoolVersion>1.0-beta42</project.immotoolVersion>
     <project.releaseDir>${project.basedir}/release</project.releaseDir>
     <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -221,8 +221,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.1</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
           <showDeprecation>true</showDeprecation>
           <debug>false</debug>
         </configuration>

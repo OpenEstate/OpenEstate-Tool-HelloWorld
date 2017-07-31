@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 OpenEstate.org.
+ * Copyright 2012-2017 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,10 @@ import com.openindex.openestate.tool.utils.ProjectPermission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Permissions of the HelloWorld addon.
@@ -35,7 +38,8 @@ public enum HelloWorldPermission implements ProjectPermission
   OBJECTS_EDIT( OBJECTS, I18n.marktr( "edit objects" ) ),
   OBJECTS_REMOVE( OBJECTS, I18n.marktr( "remove objects" ) );
 
-  //private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldPermission.class );
+  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldPermission.class );
+  private final static I18n I18N = I18nFactory.getI18n( HelloWorldPermission.class );
   private final String i18nKey;
   private final ProjectPermission parent;
 
@@ -48,7 +52,7 @@ public enum HelloWorldPermission implements ProjectPermission
   @Override
   public ProjectPermission[] getChildren()
   {
-    List<ProjectPermission> perms = new ArrayList<ProjectPermission>();
+    List<ProjectPermission> perms = new ArrayList<>();
     for (HelloWorldPermission p : values())
     {
       if (this.equals( p.parent )) perms.add( p );

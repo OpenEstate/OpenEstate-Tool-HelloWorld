@@ -2,8 +2,10 @@ Changelog for OpenEstate-Tool-HelloWorld
 ========================================
 
 
-1.0-SNAPSHOT (not released yet)
--------------------------------
+1.0-beta42 (31 Jul 2017)
+------------------------
+
+-   updated for *OpenEstate-ImmoTool* 1.0-beta42
 
 
 1.0-beta40 (14 May 2017)

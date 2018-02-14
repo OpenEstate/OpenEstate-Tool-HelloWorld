@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- routines for HSQLDB
--- Copyright (C) 2012-2017 OpenEstate.org
+-- Copyright (C) 2012-2018 OpenEstate.org
 -- -----------------------------------------------------
 \.
 -- -----------------------------------------------------

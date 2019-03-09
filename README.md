@@ -24,7 +24,7 @@ Requirements for developers
 ---------------------------
 
 -   *Java Development Kit* (JDK) 11 or newer
--   *IntelliJ IDEA* 8 (recommended but not required)
+-   *IntelliJ IDEA* (recommended but not required)
     -   Other IDE's like *Eclipse* or *Netbeans* should also work. But we can't provide support for these applications.
 -   *Apache Maven* 3
     -   Most IDE's already contain *Apache Maven*. In general it is not necessary to download / install *Apache Maven* separately.

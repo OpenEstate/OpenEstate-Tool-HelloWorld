@@ -64,7 +64,7 @@
         <plugin.providerWebsite>https://openindex.de/</plugin.providerWebsite>
         <plugin.website>https://openestate.org/</plugin.website>
         <plugin.license>Apache Software License, Version 2.0</plugin.license>
-        <plugin.dependencies />
+        <plugin.dependencies/>
 
         <!-- gettext settings -->
         <gettext.msgcat>msgcat</gettext.msgcat>

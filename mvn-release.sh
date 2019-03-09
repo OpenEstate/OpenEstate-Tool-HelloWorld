@@ -15,10 +15,10 @@
 # limitations under the License.
 #
 
-MVN=mvn
-PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export LANG=en
-set -e
+MVN="mvn"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cd $PROJECT_DIR
-$MVN -Prelease clean install
+set -e
+export LANG=en
+cd "$DIR"
+"$MVN" -Prelease clean install

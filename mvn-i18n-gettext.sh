@@ -15,10 +15,10 @@
 # limitations under the License.
 #
 
-MVN=mvn
-PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export LANG=en
-set -e
+MVN="mvn"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cd $PROJECT_DIR
-$MVN -DskipTests=true org.xnap.commons:maven-gettext-plugin:gettext
+set -e
+export LANG=en
+cd "$DIR"
+"$MVN" -DskipTests=true com.googlecode.gettext-commons:gettext-maven-plugin:gettext

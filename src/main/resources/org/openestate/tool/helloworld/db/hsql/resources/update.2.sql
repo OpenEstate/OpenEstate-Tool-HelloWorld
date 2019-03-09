@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- update 2 for HSQLDB
--- Copyright (C) 2012-2018 OpenEstate.org
+-- Copyright 2012-2019 OpenEstate.org
 -- -----------------------------------------------------
 -- Rename field 'helloworld_text' to 'helloworld_notes' in table 'immotool_helloworld'
 -- Rebuild 'view_immotool_helloworld'

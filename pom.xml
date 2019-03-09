@@ -71,6 +71,7 @@
 
         <!-- further settings -->
         <createChecksum>true</createChecksum>
+        <project.build.sourceEncoding>${openestate.build.encoding}</project.build.sourceEncoding>
     </properties>
 
     <repositories>

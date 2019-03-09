@@ -16,8 +16,10 @@
 package org.openestate.tool.helloworld;
 
 import com.openindex.openestate.tool.extensions.FrameMenuAdapter;
+import com.openindex.openestate.tool.extensions.FrameMenuExtension;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -31,6 +33,7 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph
  */
+@Extension(points = FrameMenuExtension.class)
 public class HelloWorldFrameMenuExtension extends FrameMenuAdapter {
     @SuppressWarnings("unused")
     private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldFrameMenuExtension.class);

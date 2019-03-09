@@ -41,6 +41,8 @@ import org.openestate.tool.helloworld.HelloWorldPlugin;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 import org.openestate.tool.helloworld.db.DbHelloWorldUpdateListener;
 import org.openestate.tool.helloworld.extensions.DbHelloWorldAdapter;
+import org.openestate.tool.helloworld.extensions.DbHelloWorldExtension;
+import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -52,6 +54,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author Andreas Rudolph
  */
 @SuppressWarnings({"WeakerAccess", "SqlNoDataSourceInspection"})
+@Extension(points = DbHelloWorldExtension.class)
 public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
     private final static Logger LOGGER = LoggerFactory.getLogger(HSqlDbHelloWorldExtension.class);
     @SuppressWarnings("unused")

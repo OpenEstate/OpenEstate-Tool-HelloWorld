@@ -18,7 +18,9 @@ package org.openestate.tool.helloworld;
 import com.openindex.openestate.tool.ImmoToolException;
 import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.extensions.ProjectAdapter;
+import com.openindex.openestate.tool.extensions.ProjectExtension;
 import org.openestate.tool.helloworld.extensions.DbHelloWorldExtension;
+import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -32,6 +34,7 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph
  */
+@Extension(points = ProjectExtension.class)
 public class HelloWorldProjectExtension extends ProjectAdapter {
     private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldProjectExtension.class);
     @SuppressWarnings("unused")

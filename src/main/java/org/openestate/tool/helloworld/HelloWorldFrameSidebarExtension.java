@@ -20,6 +20,7 @@ import com.openindex.openestate.tool.ImmoToolEnvironment;
 import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.ImmoToolUtils;
 import com.openindex.openestate.tool.extensions.FrameSidebarAdapter;
+import com.openindex.openestate.tool.extensions.FrameSidebarExtension;
 import com.openindex.openestate.tool.gui.AbstractRenderer;
 import com.openindex.openestate.tool.gui.DefaultListCellRenderer;
 import java.awt.event.KeyAdapter;
@@ -42,6 +43,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
+import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -56,6 +58,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author Andreas Rudolph
  */
 @SuppressWarnings("WeakerAccess")
+@Extension(points = FrameSidebarExtension.class)
 public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
     private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldFrameSidebarExtension.class);
     private final static I18n I18N = I18nFactory.getI18n(HelloWorldFrameSidebarExtension.class);

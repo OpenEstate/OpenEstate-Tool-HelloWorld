@@ -48,6 +48,7 @@
     </scm>
 
     <properties>
+
         <!-- build environment -->
         <openestate.build.encoding>UTF-8</openestate.build.encoding>
         <openestate.build.javadocDir>${project.basedir}/apidocs</openestate.build.javadocDir>
@@ -74,6 +75,7 @@
         <!-- further settings -->
         <createChecksum>true</createChecksum>
         <project.build.sourceEncoding>${openestate.build.encoding}</project.build.sourceEncoding>
+
     </properties>
 
     <repositories>
@@ -278,32 +280,6 @@
                 </configuration>
             </plugin>
 
-            <!-- assembly -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>assemble-package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>${plugin.id}-${plugin.version}</finalName>
-                            <outputDirectory>${openestate.build.packageDir}</outputDirectory>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                            <attach>false</attach>
-                            <descriptors>
-                                <descriptor>${project.basedir}/src/assembly/package.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- findbugs -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -349,8 +325,26 @@
         <!-- release profile -->
         <profile>
             <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
+
+                    <!-- source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 
                     <!-- javadoc -->
                     <plugin>
@@ -391,17 +385,28 @@
                         </executions>
                     </plugin>
 
-                    <!-- source -->
+                    <!-- assembly -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
-                                <id>attach-sources</id>
+                                <id>assemble-package</id>
+                                <phase>package</phase>
                                 <goals>
-                                    <goal>jar</goal>
+                                    <goal>single</goal>
                                 </goals>
+                                <configuration>
+                                    <finalName>${plugin.id}-${plugin.version}</finalName>
+                                    <outputDirectory>${openestate.build.packageDir}</outputDirectory>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/package.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

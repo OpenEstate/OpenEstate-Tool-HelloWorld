@@ -31,24 +31,24 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public class HelloWorldFrameMenuExtension extends FrameMenuAdapter
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldFrameMenuExtension.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldFrameMenuExtension.class );
+public class HelloWorldFrameMenuExtension extends FrameMenuAdapter {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldFrameMenuExtension.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldFrameMenuExtension.class);
 
-  @Override
-  public JMenu createMainMenu()
-  {
-    // create a main menu entry for the Hello World Plugin
-    JMenu menu = new JMenu( HelloWorldPlugin.getInstance().getTitle() );
+    @Override
+    public JMenu createMainMenu() {
+        // create a main menu entry for the Hello World Plugin
+        JMenu menu = new JMenu(HelloWorldPlugin.getInstance().getTitle());
 
-    // add action into the main menu for sidebar view
-    menu.add( new JMenuItem( new HelloWorldPlugin.SidebarSelectAction() ) );
+        // add action into the main menu for sidebar view
+        menu.add(new JMenuItem(new HelloWorldPlugin.SidebarSelectAction()));
 
-    // add action into the main menu for a new object
-    menu.add( new JMenuItem( new HelloWorldPlugin.ObjectFormAction() ) );
+        // add action into the main menu for a new object
+        menu.add(new JMenuItem(new HelloWorldPlugin.ObjectFormAction()));
 
-    // return the created main menu
-    return menu;
-  }
+        // return the created main menu
+        return menu;
+    }
 }

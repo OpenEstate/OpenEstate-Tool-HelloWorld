@@ -17,9 +17,7 @@ package org.openestate.tool.helloworld.db;
 
 import com.openindex.openestate.tool.db.AbstractDbDriver;
 import com.openindex.openestate.tool.db.AbstractDbUpdateListener;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -33,14 +31,14 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public class DbHelloWorldUpdateListener extends AbstractDbUpdateListener
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldUpdateListener.class );
-  private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldUpdateListener.class );
+public class DbHelloWorldUpdateListener extends AbstractDbUpdateListener {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(DbHelloWorldUpdateListener.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(DbHelloWorldUpdateListener.class);
 
-  @Override
-  public void updateFinished( Connection c, AbstractDbDriver dbDriver, long oldDbVersion, long newDbVersion ) throws SQLException, IOException
-  {
-    // launch some Java code, after the database was updated
-  }
+    @Override
+    public void updateFinished(Connection c, AbstractDbDriver dbDriver, long oldDbVersion, long newDbVersion) {
+        // launch some Java code, after the database was updated
+    }
 }

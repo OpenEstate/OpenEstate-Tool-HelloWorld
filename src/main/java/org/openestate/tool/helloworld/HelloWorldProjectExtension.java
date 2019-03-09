@@ -32,40 +32,36 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public class HelloWorldProjectExtension extends ProjectAdapter
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldProjectExtension.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldProjectExtension.class );
+public class HelloWorldProjectExtension extends ProjectAdapter {
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldProjectExtension.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldProjectExtension.class);
 
-  @Override
-  public void clean( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "clean project..." );
-  }
+    @Override
+    public void clean(ImmoToolProject project) {
+        LOGGER.debug("clean project...");
+    }
 
-  @Override
-  public void close( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "close project..." );
+    @Override
+    public void close(ImmoToolProject project) {
+        LOGGER.debug("close project...");
 
-    // unregister the database extension, when the project is closed
-    HelloWorldPlugin.setDbHelloWorldExtension( null );
-  }
+        // unregister the database extension, when the project is closed
+        HelloWorldPlugin.setDbHelloWorldExtension(null);
+    }
 
-  @Override
-  public void open( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "open project..." );
+    @Override
+    public void open(ImmoToolProject project) throws ImmoToolException {
+        LOGGER.debug("open project...");
 
-    // register the database extension, when the project is loaded
-    DbHelloWorldExtension dbHelloWorldExtension = HelloWorldPluginUtils.getDbHelloWorldExtension( project );
-    if (dbHelloWorldExtension==null) throw new ImmoToolException( "Can't find a usable DbHelloWorldExtension!" );
-    HelloWorldPlugin.setDbHelloWorldExtension( dbHelloWorldExtension );
-  }
+        // register the database extension, when the project is loaded
+        DbHelloWorldExtension dbHelloWorldExtension = HelloWorldPluginUtils.getDbHelloWorldExtension(project);
+        if (dbHelloWorldExtension == null) throw new ImmoToolException("Can't find a usable DbHelloWorldExtension!");
+        HelloWorldPlugin.setDbHelloWorldExtension(dbHelloWorldExtension);
+    }
 
-  @Override
-  public void repair( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "repair project..." );
-  }
+    @Override
+    public void repair(ImmoToolProject project) {
+        LOGGER.debug("repair project...");
+    }
 }

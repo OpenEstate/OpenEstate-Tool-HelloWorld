@@ -26,11 +26,10 @@ import org.openestate.tool.helloworld.db.DbHelloWorldObject;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public interface ObjectViewExtension extends BasicExtension
-{
-  public final static String ID = "ObjectViewExtension";
+public interface ObjectViewExtension extends BasicExtension {
+    String ID = "ObjectViewExtension";
 
-  public JMenuItem[] createActionMenuItems( DbHelloWorldObject object );
+    JMenuItem[] createActionMenuItems(DbHelloWorldObject object);
 
-  public HelloWorldObjectViewPanel.AbstractTab[] createTabs();
+    HelloWorldObjectViewPanel.AbstractTab[] createTabs();
 }

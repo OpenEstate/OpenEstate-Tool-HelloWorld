@@ -30,18 +30,17 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author Andreas Rudolph <andy@openindex.de>
  */
 @SuppressFBWarnings(
-  value = "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD",
-  justification = "Public fields are kept for compatibility with the database model.")
-public class DbHelloWorldObject implements Serializable
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldObject.class );
-  private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldObject.class );
-  public long id = 0;
-  public String name = null;
-  public String notes = null;
-  public Date createdAt = null;
-  public Date modifiedAt = null;
-  public long ownerUserId = 0;
-  public long ownerGroupId = 0;
-  public Permission permission = null;
+        value = "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD",
+        justification = "Public fields are kept for compatibility with the database model.")
+public class DbHelloWorldObject implements Serializable {
+    private final static Logger LOGGER = LoggerFactory.getLogger(DbHelloWorldObject.class);
+    private final static I18n I18N = I18nFactory.getI18n(DbHelloWorldObject.class);
+    public long id = 0;
+    public String name = null;
+    public String notes = null;
+    public Date createdAt = null;
+    public Date modifiedAt = null;
+    public long ownerUserId = 0;
+    public long ownerGroupId = 0;
+    public Permission permission = null;
 }

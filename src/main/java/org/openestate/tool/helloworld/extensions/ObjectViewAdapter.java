@@ -32,26 +32,24 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public abstract class ObjectViewAdapter implements ObjectViewExtension
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( ObjectViewAdapter.class );
-  private final static I18n I18N = I18nFactory.getI18n( ObjectViewAdapter.class );
+public abstract class ObjectViewAdapter implements ObjectViewExtension {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(ObjectViewAdapter.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(ObjectViewAdapter.class);
 
-  @Override
-  public JMenuItem[] createActionMenuItems( DbHelloWorldObject object )
-  {
-    return null;
-  }
+    @Override
+    public JMenuItem[] createActionMenuItems(DbHelloWorldObject object) {
+        return null;
+    }
 
-  @Override
-  public HelloWorldObjectViewPanel.AbstractTab[] createTabs()
-  {
-    return null;
-  }
+    @Override
+    public HelloWorldObjectViewPanel.AbstractTab[] createTabs() {
+        return null;
+    }
 
-  @Override
-  public String[] getRequiredPluginIds()
-  {
-    return null;
-  }
+    @Override
+    public String[] getRequiredPluginIds() {
+        return null;
+    }
 }

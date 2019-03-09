@@ -28,25 +28,24 @@ import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public interface DbHelloWorldExtension extends BasicExtension
-{
-  public final static String ID = "DbHelloWorldExtension";
+public interface DbHelloWorldExtension extends BasicExtension {
+    String ID = "DbHelloWorldExtension";
 
-  public DbHelloWorldHandler getHelloWorldHandler();
+    DbHelloWorldHandler getHelloWorldHandler();
 
-  public String[] getRequiredProcedures();
+    String[] getRequiredProcedures();
 
-  public String[] getRequiredViews();
+    String[] getRequiredViews();
 
-  public String[] getSupportedDrivers();
+    String[] getSupportedDrivers();
 
-  public String getUninstallQuery() throws IOException;
+    String getUninstallQuery() throws IOException;
 
-  public DbUpdateHandler getUpdateHandler();
+    DbUpdateHandler getUpdateHandler();
 
-  public void install( Connection c ) throws IOException, SQLException;
+    void install(Connection c) throws IOException, SQLException;
 
-  public boolean isSupportedDriver( String driverName );
+    boolean isSupportedDriver(String driverName);
 
-  public void repair( Connection c, AbstractDbDriver driver ) throws SQLException;
+    void repair(Connection c, AbstractDbDriver driver) throws SQLException;
 }

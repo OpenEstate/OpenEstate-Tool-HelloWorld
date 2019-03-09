@@ -23,19 +23,18 @@ import java.sql.SQLException;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public interface DbHelloWorldHandler
-{
-  public DbHelloWorldObject getObject( Connection c, long id ) throws SQLException;
+public interface DbHelloWorldHandler {
+    DbHelloWorldObject getObject(Connection c, long id) throws SQLException;
 
-  public DbHelloWorldObject[] getObjects( Connection c ) throws SQLException;
+    DbHelloWorldObject[] getObjects(Connection c) throws SQLException;
 
-  public DbHelloWorldObject[] getObjects( Connection c, long[] ids ) throws SQLException;
+    DbHelloWorldObject[] getObjects(Connection c, long[] ids) throws SQLException;
 
-  public long[] getObjectIds( Connection c ) throws SQLException;
+    long[] getObjectIds(Connection c) throws SQLException;
 
-  public void removeObject( Connection c, long id ) throws SQLException;
+    void removeObject(Connection c, long id) throws SQLException;
 
-  public void removeObjects( Connection c, long[] ids ) throws SQLException;
+    void removeObjects(Connection c, long[] ids) throws SQLException;
 
-  public void saveObject( Connection c, DbHelloWorldObject feed ) throws SQLException;
+    void saveObject(Connection c, DbHelloWorldObject feed) throws SQLException;
 }

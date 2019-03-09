@@ -37,108 +37,93 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-public class HelloWorldPluginUtils
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldPluginUtils.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldPluginUtils.class );
+@SuppressWarnings("WeakerAccess")
+public class HelloWorldPluginUtils {
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldPluginUtils.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldPluginUtils.class);
 
-  private HelloWorldPluginUtils()
-  {
-    super();
-  }
-
-  public static DbHelloWorldExtension getDbHelloWorldExtension( ImmoToolProject project )
-  {
-    return (project!=null)? getDbHelloWorldExtension(  project.getDbDriver() ): null;
-  }
-
-  public static DbHelloWorldExtension getDbHelloWorldExtension( AbstractDbDriver driver )
-  {
-    return (driver!=null)? getDbHelloWorldExtension( driver.getName() ): null;
-  }
-
-  public static DbHelloWorldExtension getDbHelloWorldExtension( String driverName )
-  {
-    for (Object ext : getExtensionHandlers( DbHelloWorldExtension.ID, DbHelloWorldExtension.class, null, null ))
-    {
-      DbHelloWorldExtension dbExtension = (DbHelloWorldExtension) ext;
-      if (dbExtension.isSupportedDriver( driverName )) return dbExtension;
+    private HelloWorldPluginUtils() {
+        super();
     }
-    return null;
-  }
 
-  public static Collection<DbHelloWorldExtension> getDbHelloWorldExtensions()
-  {
-    List<DbHelloWorldExtension> extensions = new ArrayList<>();
-    for (Object ext : getExtensionHandlers( DbHelloWorldExtension.ID, DbHelloWorldExtension.class, null, null ))
-    {
-      extensions.add( (DbHelloWorldExtension) ext );
+    public static DbHelloWorldExtension getDbHelloWorldExtension(ImmoToolProject project) {
+        return (project != null) ? getDbHelloWorldExtension(project.getDbDriver()) : null;
     }
-    return extensions;
-  }
 
-  private static Collection<Object> getExtensionHandlers( String extensionName, Class handlerClass, ImmoToolProject project, String[] pluginIds )
-  {
-    List<Object> handlers = new ArrayList<>();
-    ExtensionPoint point = getExtensionPoint( extensionName );
-    if (point==null)
-    {
-      LOGGER.warn( "Can't find extension point!" );
-      LOGGER.warn( "> " + extensionName );
-      return handlers;
+    public static DbHelloWorldExtension getDbHelloWorldExtension(AbstractDbDriver driver) {
+        return (driver != null) ? getDbHelloWorldExtension(driver.getName()) : null;
     }
-    //LOGGER.debug( "Lookup extension handlers '" + extensionName + "'..." );
-    List<String> pluginIdList = (pluginIds!=null && pluginIds.length>0)? Arrays.asList( pluginIds ): null;
-    for (Extension ext : point.getConnectedExtensions())
-    {
-      final PluginDescriptor plugin = ext.getDeclaringPluginDescriptor();
 
-      // only load extensions for certain plugins
-      if (pluginIdList!=null && !pluginIdList.contains( plugin.getId() )) continue;
-
-      // only load extensions for certain plugins, that are enabled in the current project
-      if (project!=null && !ImmoToolEnvironment.APP_PLUGIN.equals( plugin.getId() ) && !project.isPluginUsable( plugin.getId() )) continue;
-
-      // create objects, that were specified in the 'handler' parameter
-      for (Extension.Parameter p : ext.getParameters( "handler" ))
-      {
-        try
-        {
-          String clazz = p.valueAsString();
-          //LOGGER.debug( "> class: " + handlerClass );
-          if (clazz==null || clazz.trim().length()==0) continue;
-          ClassLoader cl = ImmoToolEnvironment.getPluginManager().getPluginClassLoader( plugin );
-          Object handler = cl.loadClass( clazz.trim() ).newInstance();
-          if (handler==null)
-            LOGGER.warn( "Can't create handler class: " + clazz );
-          else if (!handlerClass.isInstance( handler ))
-            LOGGER.warn( "The provided handler class '" + clazz + "' is not an instance of '" + handlerClass.getName() + "'!" );
-          else
-            handlers.add( handler );
+    public static DbHelloWorldExtension getDbHelloWorldExtension(String driverName) {
+        for (Object ext : getExtensionHandlers(DbHelloWorldExtension.ID, DbHelloWorldExtension.class, null, null)) {
+            DbHelloWorldExtension dbExtension = (DbHelloWorldExtension) ext;
+            if (dbExtension.isSupportedDriver(driverName)) return dbExtension;
         }
-        catch (Exception ex)
-        {
-          LOGGER.warn( "Can't create extension handler!" );
-          LOGGER.warn( "> " + ex.getLocalizedMessage(), ex );
+        return null;
+    }
+
+    public static Collection<DbHelloWorldExtension> getDbHelloWorldExtensions() {
+        List<DbHelloWorldExtension> extensions = new ArrayList<>();
+        for (Object ext : getExtensionHandlers(DbHelloWorldExtension.ID, DbHelloWorldExtension.class, null, null)) {
+            extensions.add((DbHelloWorldExtension) ext);
         }
-      }
+        return extensions;
     }
-    return handlers;
-  }
 
-  private static ExtensionPoint getExtensionPoint( String pointId )
-  {
-    return ImmoToolEnvironment.getExtensionPoint( HelloWorldPlugin.ID, pointId );
-  }
+    private static Collection<Object> getExtensionHandlers(String extensionName, Class handlerClass, ImmoToolProject project, String[] pluginIds) {
+        List<Object> handlers = new ArrayList<>();
+        ExtensionPoint point = getExtensionPoint(extensionName);
+        if (point == null) {
+            LOGGER.warn("Can't find extension point!");
+            LOGGER.warn("> " + extensionName);
+            return handlers;
+        }
+        //LOGGER.debug( "Lookup extension handlers '" + extensionName + "'..." );
+        List<String> pluginIdList = (pluginIds != null && pluginIds.length > 0) ? Arrays.asList(pluginIds) : null;
+        for (Extension ext : point.getConnectedExtensions()) {
+            final PluginDescriptor plugin = ext.getDeclaringPluginDescriptor();
 
-  public static Collection<ObjectViewExtension> getObjectViewExtensions()
-  {
-    final ImmoToolProject project = ImmoToolProject.getAppInstance();
-    List<ObjectViewExtension> extensions = new ArrayList<>();
-    for (Object ext : getExtensionHandlers( ObjectViewExtension.ID, ObjectViewExtension.class, project, null ))
-    {
-      extensions.add( (ObjectViewExtension) ext );
+            // only load extensions for certain plugins
+            if (pluginIdList != null && !pluginIdList.contains(plugin.getId())) continue;
+
+            // only load extensions for certain plugins, that are enabled in the current project
+            if (project != null && !ImmoToolEnvironment.APP_PLUGIN.equals(plugin.getId()) && !project.isPluginUsable(plugin.getId()))
+                continue;
+
+            // create objects, that were specified in the 'handler' parameter
+            for (Extension.Parameter p : ext.getParameters("handler")) {
+                try {
+                    String clazz = p.valueAsString();
+                    //LOGGER.debug( "> class: " + handlerClass );
+                    if (clazz == null || clazz.trim().length() == 0) continue;
+                    ClassLoader cl = ImmoToolEnvironment.getPluginManager().getPluginClassLoader(plugin);
+                    Object handler = cl.loadClass(clazz.trim()).newInstance();
+                    if (handler == null)
+                        LOGGER.warn("Can't create handler class: " + clazz);
+                    else if (!handlerClass.isInstance(handler))
+                        LOGGER.warn("The provided handler class '" + clazz + "' is not an instance of '" + handlerClass.getName() + "'!");
+                    else
+                        handlers.add(handler);
+                } catch (Exception ex) {
+                    LOGGER.warn("Can't create extension handler!");
+                    LOGGER.warn("> " + ex.getLocalizedMessage(), ex);
+                }
+            }
+        }
+        return handlers;
     }
-    return extensions;
-  }
+
+    private static ExtensionPoint getExtensionPoint(String pointId) {
+        return ImmoToolEnvironment.getExtensionPoint(HelloWorldPlugin.ID, pointId);
+    }
+
+    public static Collection<ObjectViewExtension> getObjectViewExtensions() {
+        final ImmoToolProject project = ImmoToolProject.getAppInstance();
+        List<ObjectViewExtension> extensions = new ArrayList<>();
+        for (Object ext : getExtensionHandlers(ObjectViewExtension.ID, ObjectViewExtension.class, project, null)) {
+            extensions.add((ObjectViewExtension) ext);
+        }
+        return extensions;
+    }
 }

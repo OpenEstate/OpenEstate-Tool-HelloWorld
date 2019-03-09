@@ -30,15 +30,14 @@ import com.openindex.openestate.tool.db.DbUser;
 import com.openindex.openestate.tool.extensions.DbExtension;
 import com.openindex.openestate.tool.gui.AbstractI18nAction;
 import com.openindex.openestate.tool.utils.ProjectPermission;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import org.apache.commons.lang3.StringUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
@@ -125,12 +124,12 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
                 RESOURCE_PATH + name);
     }
 
-    public static Icon getResourceIcon(String name, int size) {
+    public static ImageIcon getResourceIcon(String name, int size) {
         return ImmoToolUtils.getResourceIcon(
                 RESOURCE_PATH, size, name, HelloWorldPlugin.class.getClassLoader());
     }
 
-    public static Image getResourceImage(String name, int size) {
+    public static BufferedImage getResourceImage(String name, int size) {
         return ImmoToolUtils.getResourceImage(
                 RESOURCE_PATH, size, name, HelloWorldPlugin.class.getClassLoader());
     }

@@ -15,21 +15,33 @@
  */
 package org.openestate.tool.helloworld.extensions;
 
+import com.openindex.openestate.tool.ImmoToolEnvironment;
+import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.extensions.BasicExtension;
+import java.util.Collection;
 import javax.swing.JMenuItem;
 import org.openestate.tool.helloworld.HelloWorldObjectViewPanel;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
 
 /**
- * An extension point, that adds custom features into
- * {@link HelloWorldObjectViewPanel}.
+ * An extension point, that adds custom features into {@link HelloWorldObjectViewPanel}.
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
 public interface ObjectViewExtension extends BasicExtension {
-    String ID = "ObjectViewExtension";
-
     JMenuItem[] createActionMenuItems(DbHelloWorldObject object);
 
     HelloWorldObjectViewPanel.AbstractTab[] createTabs();
+
+    /**
+     * Load available implementations of {@link ObjectViewExtension}.
+     *
+     * @return available implementations of {@link ObjectViewExtension}
+     */
+    static Collection<ObjectViewExtension> load() {
+        return ImmoToolEnvironment.getExtensions(
+                ObjectViewExtension.class,
+                ImmoToolProject.getAppInstance()
+        );
+    }
 }

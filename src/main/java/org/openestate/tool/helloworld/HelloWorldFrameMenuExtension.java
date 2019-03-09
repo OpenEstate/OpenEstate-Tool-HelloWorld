@@ -40,6 +40,7 @@ public class HelloWorldFrameMenuExtension extends FrameMenuAdapter {
     @Override
     public JMenu createMainMenu() {
         // create a main menu entry for the Hello World Plugin
+        //noinspection ConstantConditions
         JMenu menu = new JMenu(HelloWorldPlugin.getInstance().getTitle());
 
         // add action into the main menu for sidebar view

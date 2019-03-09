@@ -1,3 +1,6 @@
+-- noinspection SqlResolveForFile
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- routines for HSQLDB
@@ -15,12 +18,12 @@ CREATE FUNCTION can_delete_immotool_helloworld( val_helloworld_id BIGINT )
     DECLARE owner_uid BIGINT;
     DECLARE owner_gid BIGINT;
 
-    -- auf Administrator-Rechte prüfen
+    -- check for administrator permissions
     IF NOT is_admin() = TRUE THEN
       RETURN TRUE;
     END IF;
 
-    -- auf Benutzer-Rechte prüfen
+    -- check for user permissions
     SELECT access_permissions, access_owner_id, access_group_id
       INTO permissions, owner_uid, owner_gid
       FROM immotool_helloworld
@@ -41,12 +44,12 @@ CREATE FUNCTION can_write_immotool_helloworld( val_helloworld_id BIGINT )
     DECLARE owner_uid BIGINT;
     DECLARE owner_gid BIGINT;
 
-    -- auf Administrator-Rechte prüfen
+    -- check for administrator permissions
     IF NOT is_admin() = TRUE THEN
       RETURN TRUE;
     END IF;
 
-    -- auf Benutzer-Rechte prüfen
+    -- check for user permissions
     SELECT access_permissions, access_owner_id, access_group_id
       INTO permissions, owner_uid, owner_gid
       FROM immotool_helloworld
@@ -68,13 +71,13 @@ CREATE PROCEDURE remove_immotool_helloworld( val_helloworld_id BIGINT )
       SIGNAL SQLSTATE '45000';
     END IF;
 
-    -- sicherstellen, dass der Benutzer Lösch-Rechte besitzt
+    -- make sure, that the user has permission for removal
     SET allowed = can_delete_immotool_helloworld( val_helloworld_id );
     IF NOT allowed = TRUE THEN
       SIGNAL SQLSTATE '45000';
     END IF;
 
-    -- Eintrag entfernen
+    -- remove entry
     DELETE
       FROM immotool_helloworld
       WHERE helloworld_id = val_helloworld_id;
@@ -112,16 +115,16 @@ CREATE PROCEDURE save_immotool_helloworld(
       FROM view_immotool_users
       WHERE user_login=USER();
 
-    -- Neuen Eintrag erzeugen
+    -- create new entry
     IF val_helloworld_id < 1 THEN
-      -- Inhaber-Benutzer ggf. automatisch setzen
+      -- set owner
       IF (val_access_owner_id IS NULL OR val_access_owner_id<1 OR dba = FALSE) THEN
         SET owner_uid = current_uid;
       ELSE
         SET owner_uid = val_access_owner_id;
       END IF;
 
-      -- Inhaber-Gruppe ggf. automatisch setzen
+      -- set group
       IF (val_access_group_id IS NULL OR val_access_group_id<1) THEN
         SELECT group_id
           INTO owner_gid
@@ -131,14 +134,14 @@ CREATE PROCEDURE save_immotool_helloworld(
         SET owner_gid = val_access_group_id;
       END IF;
 
-      -- Berechtigungen ggf. automatisch setzen
+      -- set permissions
       IF (val_access_permissions IS NULL OR val_access_permissions<0) THEN
         SET permissions = 63;
       ELSE
         SET permissions = val_access_permissions;
       END IF;
 
-      -- Eintrag speichern
+      -- insert entry
       INSERT INTO immotool_helloworld (
         helloworld_name,
         helloworld_notes,
@@ -152,15 +155,15 @@ CREATE PROCEDURE save_immotool_helloworld(
         owner_gid,
         permissions);
 
-      -- ID zurückliefern
+      -- return entry id
       SELECT helloworld_id
         INTO val_helloworld_id
         FROM immotool_helloworld
         WHERE helloworld_id = CURRENT VALUE FOR seq_immotool_helloworld;
 
-    -- Bestehenden Eintrag bearbeiten
+    -- update existing entry
     ELSE
-      -- Prüfen ob Schreib-Rechte vorliegen
+      -- make sure, that the user has permission for update
       SELECT access_permissions, access_owner_id, access_group_id
         INTO permissions, owner_uid, owner_gid
         FROM immotool_helloworld
@@ -173,25 +176,25 @@ CREATE PROCEDURE save_immotool_helloworld(
         END IF;
       END IF;
 
-      -- Wechsel des Inhaber-Benutzers darf nur der Administrator durchführen
+      -- only administrators may change owner
       IF dba = TRUE AND val_access_owner_id IS NOT NULL AND val_access_owner_id>1 THEN
         SET owner_uid = val_access_owner_id;
       END IF;
 
       IF dba = TRUE OR owner_uid = current_uid THEN
 
-        -- Wechsel der Inhaber-Gruppe darf nur der Administrator oder Inhaber durchführen
+        -- only administrators and owners may change group
         IF val_access_group_id IS NOT NULL AND val_access_group_id>1 THEN
           SET owner_gid = val_access_group_id;
         END IF;
 
-        -- Wechsel der Berechtigungen darf nur der Administrator oder Inhaber durchführen
+        -- only administrators and owners may permissions
         IF val_access_permissions IS NOT NULL AND val_access_permissions>1 THEN
           SET permissions = val_access_permissions;
         END IF;
       END IF;
 
-      -- Eintrag bearbeiten
+      -- update entry
       UPDATE immotool_helloworld
         SET
           helloworld_name = val_helloworld_name,

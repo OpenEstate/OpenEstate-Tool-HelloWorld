@@ -1,3 +1,5 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- uninstallation for HSQLDB

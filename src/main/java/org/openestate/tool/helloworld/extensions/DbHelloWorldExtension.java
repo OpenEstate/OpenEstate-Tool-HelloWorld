@@ -15,12 +15,15 @@
  */
 package org.openestate.tool.helloworld.extensions;
 
+import com.openindex.openestate.tool.ImmoToolEnvironment;
+import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.db.AbstractDbDriver;
 import com.openindex.openestate.tool.db.DbUpdateHandler;
 import com.openindex.openestate.tool.extensions.BasicExtension;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collection;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 
 /**
@@ -29,8 +32,6 @@ import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
  * @author Andreas Rudolph <andy@openindex.de>
  */
 public interface DbHelloWorldExtension extends BasicExtension {
-    String ID = "DbHelloWorldExtension";
-
     DbHelloWorldHandler getHelloWorldHandler();
 
     String[] getRequiredProcedures();
@@ -48,4 +49,46 @@ public interface DbHelloWorldExtension extends BasicExtension {
     boolean isSupportedDriver(String driverName);
 
     void repair(Connection c, AbstractDbDriver driver) throws SQLException;
+
+    /**
+     * Load available implementations of {@link DbHelloWorldExtension}.
+     *
+     * @return available implementations of {@link DbHelloWorldExtension}
+     */
+    static Collection<DbHelloWorldExtension> load() {
+        return ImmoToolEnvironment.getExtensions(DbHelloWorldExtension.class);
+    }
+
+    /**
+     * Load a {@link DbHelloWorldExtension} for a specific database driver.
+     *
+     * @param driver database driver
+     * @return implementation of {@link DbHelloWorldExtension} for the specified database driver
+     */
+    static DbHelloWorldExtension loadByDriver(AbstractDbDriver driver) {
+        return (driver != null) ? loadByDriver(driver.getName()) : null;
+    }
+
+    /**
+     * Load a {@link DbHelloWorldExtension} for a specific database driver.
+     *
+     * @param driverName internal name of the database driver
+     * @return implementation of {@link DbHelloWorldExtension} for the specified database driver
+     */
+    static DbHelloWorldExtension loadByDriver(String driverName) {
+        for (DbHelloWorldExtension ext : ImmoToolEnvironment.getExtensions(DbHelloWorldExtension.class)) {
+            if (ext.isSupportedDriver(driverName)) return ext;
+        }
+        return null;
+    }
+
+    /**
+     * Load a {@link DbHelloWorldExtension} for a project.
+     *
+     * @param project project
+     * @return implementation of {@link DbHelloWorldExtension} for the specified project
+     */
+    static DbHelloWorldExtension loadByProject(ImmoToolProject project) {
+        return (project != null) ? loadByDriver(project.getDbDriver()) : null;
+    }
 }

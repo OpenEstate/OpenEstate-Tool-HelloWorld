@@ -39,7 +39,7 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-@SuppressWarnings({"WeakerAccess", "SqlDialectInspection", "SqlNoDataSourceInspection"})
+@SuppressWarnings({"WeakerAccess", "SqlNoDataSourceInspection"})
 public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl {
     @SuppressWarnings("unused")
     private final static Logger LOGGER = LoggerFactory.getLogger(HSqlDbHelloWorldHandler.class);
@@ -147,7 +147,7 @@ public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl {
     }
 
     @Override
-    public void saveObject(Connection c, DbHelloWorldObject feed) throws SQLException {
+    public void saveObject(Connection c, DbHelloWorldObject object) throws SQLException {
         final boolean oldAutoCommit = c.getAutoCommit();
         NamedCallableStatement saveStatement = null;
         try {
@@ -159,23 +159,23 @@ public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl {
                     + ":" + FIELD_ACCESS_OWNER_ID + ", "
                     + ":" + FIELD_ACCESS_GROUP_ID + ", "
                     + ":" + FIELD_ACCESS_PERMISSIONS + ");");
-            saveStatement.setLong(FIELD_HELLOWORLD_ID, feed.id);
-            saveStatement.setString(FIELD_HELLOWORLD_NOTES, feed.notes);
-            saveStatement.setString(FIELD_HELLOWORLD_NAME, StringUtils.abbreviate(feed.name, 100));
-            saveStatement.setLong(FIELD_ACCESS_OWNER_ID, feed.ownerUserId);
-            saveStatement.setLong(FIELD_ACCESS_GROUP_ID, feed.ownerGroupId);
-            saveStatement.setInt(FIELD_ACCESS_PERMISSIONS, (feed.permission != null) ? feed.permission.getValue() : -1);
+            saveStatement.setLong(FIELD_HELLOWORLD_ID, object.id);
+            saveStatement.setString(FIELD_HELLOWORLD_NOTES, object.notes);
+            saveStatement.setString(FIELD_HELLOWORLD_NAME, StringUtils.abbreviate(object.name, 100));
+            saveStatement.setLong(FIELD_ACCESS_OWNER_ID, object.ownerUserId);
+            saveStatement.setLong(FIELD_ACCESS_GROUP_ID, object.ownerGroupId);
+            saveStatement.setInt(FIELD_ACCESS_PERMISSIONS, (object.permission != null) ? object.permission.getValue() : -1);
             saveStatement.execute();
 
-            // ID des erzeugten / bearbeiteten Datensatzes ermitteln
-            final long referencedId = (feed.id < 1) ? saveStatement.getLong(FIELD_HELLOWORLD_ID) : feed.id;
+            // remember ID of the created / update row
+            final long referencedId = (object.id < 1) ? saveStatement.getLong(FIELD_HELLOWORLD_ID) : object.id;
             if (referencedId < 1) throw new SQLException("Can't determine ID of the saved object!");
 
             c.commit();
 
-            // Nach einem INSERT die ID des erzeugten Datensatzes übernehmen
-            if (feed.id <= 0) {
-                feed.id = referencedId;
+            // store ID of into object
+            if (object.id <= 0) {
+                object.id = referencedId;
             }
         } catch (SQLException ex) {
             c.rollback();

@@ -27,6 +27,7 @@ import com.openindex.openestate.tool.extensions.DbExtension;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,12 +51,12 @@ import org.xnap.commons.i18n.I18nFactory;
  *
  * @author Andreas Rudolph <andy@openindex.de>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "SqlNoDataSourceInspection"})
 public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
     private final static Logger LOGGER = LoggerFactory.getLogger(HSqlDbHelloWorldExtension.class);
     @SuppressWarnings("unused")
     private final static I18n I18N = I18nFactory.getI18n(HSqlDbHelloWorldExtension.class);
-    public final static String RESOURCE_PATH = "/org/openestate/tool/helloworld/db/hsql/resources/";
+    private final static String RESOURCE_PATH = "org/openestate/tool/helloworld/db/hsql/resources/";
     private final static DbHelloWorldHandler HELLO_WORLD_HANDLER = new HSqlDbHelloWorldHandler();
 
     @Override
@@ -76,6 +77,17 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
         return new String[]{
                 HSqlDbHelloWorldHandler.VIEW_HELLOWORLD,
         };
+    }
+
+    @SuppressWarnings("unused")
+    public static URL getResource(String name) {
+        return HSqlDbHelloWorldExtension.class.getClassLoader().getResource(
+                RESOURCE_PATH + name);
+    }
+
+    public static InputStream getResourceAsStream(String name) {
+        return HSqlDbHelloWorldExtension.class.getClassLoader().getResourceAsStream(
+                RESOURCE_PATH + name);
     }
 
     @Override
@@ -124,6 +136,7 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
             // write database structures
             s.execute("CHECKPOINT;");
         } catch (SqlToolError ex) {
+            //noinspection ConstantConditions
             if (f != null) f.closeReader();
             c.rollback();
             LOGGER.error("Can't execute schema!");
@@ -139,11 +152,8 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
     }
 
     private static SqlFile readHsqlFile(String file) throws IOException {
-        InputStream input = null;
-        try {
-            // read query from a resource file
-            input = HSqlDbHelloWorldExtension.class.getResourceAsStream(RESOURCE_PATH + file);
-            if (input == null) return null;
+        // read query from a resource file
+        try (InputStream input = getResourceAsStream(file)) {
             List<String> lines = IOUtils.readLines(input, "UTF-8");
 
             // write query into a temporary file
@@ -153,23 +163,17 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
 
             // create a SQL file
             return new SqlFile(tempFile, "UTF-8");
-        } finally {
-            IOUtils.closeQuietly(input);
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static String readHsqlQuery(String file) throws IOException {
-        InputStream input = null;
-        try {
-            // read query from a resource file
-            input = HSqlDbHelloWorldExtension.class.getResourceAsStream(RESOURCE_PATH + file);
-            if (input == null) return null;
+        // read query from a resource file
+        try (InputStream input = getResourceAsStream(file)) {
             List<String> lines = IOUtils.readLines(input, "UTF-8");
 
             // return query
             return StringUtils.join(lines, System.lineSeparator());
-        } finally {
-            IOUtils.closeQuietly(input);
         }
     }
 
@@ -181,6 +185,7 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
         repairForeignKeys(c, driver);
     }
 
+    @SuppressWarnings("unused")
     private static void repairForeignKeys(Connection c, AbstractDbDriver driver) throws SQLException {
         // recreate foreign keys for access_owner_id fields
         HSqlUtils.updateAccessOwnerForeignKey(
@@ -193,6 +198,7 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
 
     private final static class HelloWorldUpdateHandler extends HSqlDbUpdateHandler {
         public HelloWorldUpdateHandler(String uninstallQuery, AbstractDbUpdateListener listener) {
+            //noinspection ConstantConditions
             super(
                     HelloWorldPlugin.ID,
                     HSqlDbUpdateHandler.Type.PLUGIN,
@@ -204,7 +210,7 @@ public class HSqlDbHelloWorldExtension extends DbHelloWorldAdapter {
         }
 
         /**
-         * Structural changes on a HSQL database occured for the HelloWorld addon.
+         * Structural changes on a HSQL database occurred for the HelloWorld addon.
          */
         @Override
         public void updateFinished(Connection c, AbstractDbDriver dbDriver, DbExtension dbExtension, long oldDbVersion, long newDbVersion) throws SQLException, IOException {

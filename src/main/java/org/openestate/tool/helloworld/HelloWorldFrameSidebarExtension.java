@@ -20,7 +20,8 @@ import com.openindex.openestate.tool.ImmoToolEnvironment;
 import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.ImmoToolUtils;
 import com.openindex.openestate.tool.extensions.FrameSidebarAdapter;
-import com.openindex.openestate.tool.utils.AbstractRenderer;
+import com.openindex.openestate.tool.gui.AbstractRenderer;
+import com.openindex.openestate.tool.gui.DefaultListCellRenderer;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -32,6 +33,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -71,6 +73,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
         popup.add(new JMenuItem(new HelloWorldPlugin.ObjectFormAction()));
 
         // no object is selected in the sidebar
+        //noinspection StatementWithEmptyBody
         if (object == null) {
         }
 
@@ -143,7 +146,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
         return list;
     }
 
-    public DefaultListModel<DbHelloWorldObject> createListModel() {
+    public static DefaultListModel<DbHelloWorldObject> createListModel() {
         final ImmoToolProject project = ImmoToolProject.getAppInstance();
         final DbHelloWorldHandler dbHelloWorldHandler = HelloWorldPlugin.getDbHelloWorldExtension().getHelloWorldHandler();
         Connection c = null;
@@ -159,7 +162,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
         }
     }
 
-    private static DefaultListModel<DbHelloWorldObject> createListModel(Connection c, DbHelloWorldHandler dbHelloWorldHandler) throws SQLException {
+    public static DefaultListModel<DbHelloWorldObject> createListModel(Connection c, DbHelloWorldHandler dbHelloWorldHandler) throws SQLException {
         DefaultListModel<DbHelloWorldObject> model = new DefaultListModel<>();
         for (DbHelloWorldObject object : dbHelloWorldHandler.getObjects(c)) {
             model.addElement(object);
@@ -167,6 +170,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
         return model;
     }
 
+    @SuppressWarnings("unused")
     public static AbstractButton getCurrentSidebarButton() {
         return currentSidebarButton;
     }
@@ -177,9 +181,7 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
 
     @Override
     public Icon getIcon() {
-        final ClassLoader cl = HelloWorldPlugin.class.getClassLoader();
-        return ImmoToolUtils.getResourceIcon(
-                HelloWorldPlugin.RESOURCE_PATH, 32, "helloworld.png", cl);
+        return HelloWorldPlugin.getResourceIcon("helloworld.png", 32);
     }
 
     @Override
@@ -259,26 +261,31 @@ public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {
         }
     }
 
-    private static class HelloWorldListRenderer extends AbstractRenderer {
-        private final Icon icon;
+    private static class HelloWorldRenderer extends AbstractRenderer<DbHelloWorldObject> {
+        private final Icon icon = ImmoToolEnvironment.getResourceIcon("file_new.png", 16);
 
+        @Override
+        public void render(DbHelloWorldObject value, JLabel label) {
+            if (value != null) {
+                label.setIcon(HelloWorldRenderer.this.icon);
+                label.setText(value.name);
+            } else {
+                label.setIcon(null);
+                label.setText(StringUtils.EMPTY);
+            }
+        }
+    }
+
+    private static class HelloWorldListRenderer extends DefaultListCellRenderer<DbHelloWorldObject> {
         public HelloWorldListRenderer() {
-            super();
-            HelloWorldListRenderer.this.setBorder(
-                    BorderFactory.createEmptyBorder(3, 3, 3, 3));
-
-            this.icon = ImmoToolEnvironment.getResourceIcon("file_new.png", 16);
+            super(new HelloWorldRenderer());
         }
 
         @Override
-        protected void initValue(Object value) {
-            if (value instanceof DbHelloWorldObject) {
-                HelloWorldListRenderer.this.setIcon(this.icon);
-                HelloWorldListRenderer.this.setText(((DbHelloWorldObject) value).name);
-            } else {
-                HelloWorldListRenderer.this.setIcon(null);
-                HelloWorldListRenderer.this.setText(StringUtils.EMPTY);
-            }
+        protected void init() {
+            super.init();
+            HelloWorldListRenderer.this.setBorder(
+                    BorderFactory.createEmptyBorder(3, 3, 3, 3));
         }
     }
 }

@@ -55,7 +55,7 @@ public class HelloWorldProjectExtension extends ProjectAdapter {
         LOGGER.debug("open project...");
 
         // register the database extension, when the project is loaded
-        DbHelloWorldExtension dbHelloWorldExtension = HelloWorldPluginUtils.getDbHelloWorldExtension(project);
+        DbHelloWorldExtension dbHelloWorldExtension = DbHelloWorldExtension.loadByProject(project);
         if (dbHelloWorldExtension == null) throw new ImmoToolException("Can't find a usable DbHelloWorldExtension!");
         HelloWorldPlugin.setDbHelloWorldExtension(dbHelloWorldExtension);
     }

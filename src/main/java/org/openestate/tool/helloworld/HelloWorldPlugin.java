@@ -33,6 +33,7 @@ import com.openindex.openestate.tool.utils.ProjectPermission;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -43,6 +44,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
 import org.openestate.tool.helloworld.extensions.DbHelloWorldExtension;
+import org.pf4j.PluginWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -58,17 +60,16 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
     private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldPlugin.class);
     private final static I18n I18N = I18nFactory.getI18n(HelloWorldPlugin.class);
     public final static String ID = "OpenEstate-Tool-HelloWorld";
-    public final static String RESOURCE_PATH = "/org/openestate/tool/helloworld/resources/";
+    private final static String RESOURCE_PATH = "org/openestate/tool/helloworld/resources/";
     private static DbHelloWorldExtension dbHelloWorldExtension = null;
 
-    @Override
-    protected void doStart() {
-        LOGGER.debug("doStart");
+    public HelloWorldPlugin(PluginWrapper wrapper) {
+        super(wrapper);
     }
 
     @Override
-    protected void doStop() {
-        LOGGER.debug("doStop");
+    public void delete() {
+        LOGGER.debug("deleting plugin...");
     }
 
     @Override
@@ -91,12 +92,8 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
     }
 
     public static HelloWorldPlugin getInstance() {
-        return (HelloWorldPlugin) ImmoToolEnvironment.getPlugin(ID);
-    }
-
-    @Override
-    public String getLicense() {
-        return "Apache Software License 2.0";
+        final PluginWrapper wrapper = ImmoToolEnvironment.getPlugin(ID);
+        return (wrapper != null) ? (HelloWorldPlugin) wrapper.getPlugin() : null;
     }
 
     @Override
@@ -116,6 +113,18 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
                 dbHelloWorldExtension.getRequiredViews() : null;
     }
 
+    @SuppressWarnings("unused")
+    public static URL getResource(String name) {
+        return HelloWorldPlugin.class.getClassLoader().getResource(
+                RESOURCE_PATH + name);
+    }
+
+    @SuppressWarnings("unused")
+    public static InputStream getResourceAsStream(String name) {
+        return HelloWorldPlugin.class.getClassLoader().getResourceAsStream(
+                RESOURCE_PATH + name);
+    }
+
     public static Icon getResourceIcon(String name, int size) {
         return ImmoToolUtils.getResourceIcon(
                 RESOURCE_PATH, size, name, HelloWorldPlugin.class.getClassLoader());
@@ -126,6 +135,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
                 RESOURCE_PATH, size, name, HelloWorldPlugin.class.getClassLoader());
     }
 
+    @SuppressWarnings("unused")
     public static URL getResourceImageURL(String name, int size) {
         return ImmoToolUtils.getResourceImageURL(
                 RESOURCE_PATH, size, name, HelloWorldPlugin.class.getClassLoader());
@@ -138,7 +148,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
 
     @Override
     public String getUninstallQuery(String driverName) throws IOException {
-        DbHelloWorldExtension pluginDbExtension = HelloWorldPluginUtils.getDbHelloWorldExtension(driverName);
+        DbHelloWorldExtension pluginDbExtension = DbHelloWorldExtension.loadByDriver(driverName);
         if (pluginDbExtension == null)
             throw new IOException("Can't find a DbHelloWorldExtension for driver '" + driverName + "'!");
         return pluginDbExtension.getUninstallQuery();
@@ -146,7 +156,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
 
     @Override
     public DbUpdateHandler getUpdateHandler(String driverName) {
-        DbHelloWorldExtension pluginDbExtension = HelloWorldPluginUtils.getDbHelloWorldExtension(driverName);
+        DbHelloWorldExtension pluginDbExtension = DbHelloWorldExtension.loadByDriver(driverName);
         if (pluginDbExtension == null) {
             LOGGER.warn("Can't find a DbHelloWorldExtension for driver '" + driverName + "'!");
             return null;
@@ -156,15 +166,15 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
 
     @Override
     public void install(Connection c, DbExtension dbExtension, String driverName, boolean importDefaultData) throws SQLException, IOException {
-        DbHelloWorldExtension pluginDbExtension = HelloWorldPluginUtils.getDbHelloWorldExtension(driverName);
+        DbHelloWorldExtension pluginDbExtension = DbHelloWorldExtension.loadByDriver(driverName);
         if (pluginDbExtension == null)
             throw new SQLException("Can't find a DbHelloWorldExtension for driver '" + driverName + "'!");
 
-        // Datenstrukturen des Plugins erzeugen
+        // install data structures into the database
         pluginDbExtension.install(c);
         super.install(c, dbExtension, driverName, importDefaultData);
 
-        // Standard-Daten importieren
+        // import default data into the database
         if (importDefaultData) {
             for (int i = 1; i < 4; i++) {
                 DbHelloWorldObject obj = new DbHelloWorldObject();
@@ -203,7 +213,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
     public static boolean isUserAllowedTo(HelloWorldPermission permission, ImmoToolProject project) {
         if (project == null) return false;
         DbUser user = project.getUser();
-        return (user != null) ? user.isAllowedTo(ID, permission) : false;
+        return user != null && user.isAllowedTo(ID, permission);
     }
 
     public static void refreshSidebar() {
@@ -218,6 +228,16 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
 
     public static void setDbHelloWorldExtension(DbHelloWorldExtension dbHelloWorldExtension) {
         HelloWorldPlugin.dbHelloWorldExtension = dbHelloWorldExtension;
+    }
+
+    @Override
+    public void start() {
+        LOGGER.debug("starting plugin...");
+    }
+
+    @Override
+    public void stop() {
+        LOGGER.debug("stopping plugin...");
     }
 
     /**
@@ -337,7 +357,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
         }
     }
 
-    private final static class SidebarRefreshTask extends ImmoToolTask<DefaultListModel, Void> {
+    private final static class SidebarRefreshTask extends ImmoToolTask<DefaultListModel<DbHelloWorldObject>, Void> {
         private final HelloWorldFrameSidebarExtension.HelloWorldList list;
 
         public SidebarRefreshTask(HelloWorldFrameSidebarExtension.HelloWorldList list) {
@@ -346,7 +366,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
         }
 
         @Override
-        protected DefaultListModel doInBackground() throws Exception {
+        protected DefaultListModel<DbHelloWorldObject> doInBackground() throws Exception {
             final ImmoToolProject project = ImmoToolProject.getAppInstance();
             final DbHelloWorldHandler dbHandler = HelloWorldPlugin.getDbHelloWorldExtension().getHelloWorldHandler();
             Connection c = null;
@@ -366,7 +386,7 @@ public class HelloWorldPlugin extends ImmoToolProjectPlugin {
         }
 
         @Override
-        protected void succeeded(DefaultListModel result) {
+        protected void succeeded(DefaultListModel<DbHelloWorldObject> result) {
             super.succeeded(result);
             if (result == null) return;
 

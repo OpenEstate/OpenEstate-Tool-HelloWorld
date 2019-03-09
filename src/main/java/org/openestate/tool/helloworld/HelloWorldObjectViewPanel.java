@@ -328,7 +328,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView {
         // load addons
         addons = new ArrayList<>();
         try {
-            addons.addAll(HelloWorldPluginUtils.getObjectViewExtensions());
+            addons.addAll(ObjectViewExtension.load());
         } catch (Exception ex) {
             LOGGER.warn("Can't load addons!");
             LOGGER.warn("> " + ex.getLocalizedMessage(), ex);
@@ -423,6 +423,7 @@ public class HelloWorldObjectViewPanel extends AbstractMainView {
 
         public abstract void save(DbHelloWorldObject object) throws Exception;
 
+        @SuppressWarnings("EmptyMethod")
         public void saveFinished(Connection c, ImmoToolProject project, DbHelloWorldObject object) {
         }
 

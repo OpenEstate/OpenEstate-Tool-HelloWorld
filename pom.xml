@@ -50,7 +50,7 @@
     <properties>
         <!-- build environment -->
         <openestate.build.encoding>UTF-8</openestate.build.encoding>
-        <openestate.build.releaseDir>${project.basedir}/release</openestate.build.releaseDir>
+        <openestate.build.packageDir>${project.basedir}/package</openestate.build.packageDir>
         <openestate.build.javadocDir>${project.basedir}/javadoc</openestate.build.javadocDir>
         <openestate.immotool.version>1.0.0-SNAPSHOT</openestate.immotool.version>
 
@@ -60,6 +60,8 @@
         <plugin.class>org.openestate.tool.helloworld.HelloWorldPlugin</plugin.class>
         <plugin.version>${project.version}</plugin.version>
         <plugin.provider>OpenIndex.de</plugin.provider>
+        <plugin.providerWebsite>https://openindex.de/</plugin.providerWebsite>
+        <plugin.website>https://openestate.org/</plugin.website>
         <plugin.license>Apache Software License, Version 2.0</plugin.license>
         <plugin.dependencies />
 
@@ -226,7 +228,7 @@
                     <failOnError>false</failOnError>
                     <filesets>
                         <fileset>
-                            <directory>${openestate.build.releaseDir}</directory>
+                            <directory>${openestate.build.packageDir}</directory>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                         <fileset>
@@ -251,6 +253,55 @@
                         <compilerArg>-Xlint:unchecked</compilerArg>
                     </compilerArgs>
                 </configuration>
+            </plugin>
+
+            <!-- jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Plugin-Id>${plugin.id}</Plugin-Id>
+                            <Plugin-Version>${plugin.version}</Plugin-Version>
+                            <Plugin-Provider>${plugin.provider}</Plugin-Provider>
+                            <Plugin-License>${plugin.license}</Plugin-License>
+                            <Plugin-Class>${plugin.class}</Plugin-Class>
+                            <Plugin-Dependencies>${plugin.dependencies}</Plugin-Dependencies>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- assembly -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>assemble-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${plugin.id}-${plugin.version}</finalName>
+                            <outputDirectory>${openestate.build.packageDir}</outputDirectory>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <attach>false</attach>
+                            <descriptors>
+                                <descriptor>${project.basedir}/src/assembly/package.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- findbugs -->
@@ -335,31 +386,6 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- assembly -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <finalName>${project.artifactId}</finalName>
-                                    <outputDirectory>${openestate.build.releaseDir}</outputDirectory>
-                                    <appendAssemblyId>false</appendAssemblyId>
-                                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                                    <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/release.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

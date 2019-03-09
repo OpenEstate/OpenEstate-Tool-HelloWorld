@@ -1,3 +1,6 @@
+-- noinspection SqlResolveForFile
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- schema for HSQLDB

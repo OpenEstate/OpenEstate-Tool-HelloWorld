@@ -2,10 +2,12 @@ Changelog for OpenEstate-Tool-HelloWorld
 ========================================
 
 
-1.0-SNAPSHOT (not released yet)
--------------------------------
+1.0.0-SNAPSHOT (not released yet)
+---------------------------------
 
-...
+-   updated for *OpenEstate-ImmoTool* 1.0.0
+-   updated to Java 11
+-   migrated from [JPF](http://jpf.sourceforge.net/) to [PF4J](https://pf4j.org/)
 
 
 1.0-beta42 (31 Jul 2017)

@@ -17,6 +17,6 @@
 /**
  * Classes to access HSQL databases for the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 package org.openestate.tool.helloworld.db.hsql;

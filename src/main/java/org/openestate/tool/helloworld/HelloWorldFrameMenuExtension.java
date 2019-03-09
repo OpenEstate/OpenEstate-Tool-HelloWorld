@@ -29,7 +29,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * This extensions integrates a separate menu for the addon into the
  * applications main menu.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public class HelloWorldFrameMenuExtension extends FrameMenuAdapter {
     @SuppressWarnings("unused")

@@ -30,7 +30,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * This class may be extended for custom tabs or actions in the
  * {@link HelloWorldObjectViewPanel}.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public abstract class ObjectViewAdapter implements ObjectViewExtension {
     @SuppressWarnings("unused")

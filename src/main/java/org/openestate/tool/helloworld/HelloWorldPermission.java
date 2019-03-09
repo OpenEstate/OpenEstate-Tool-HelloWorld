@@ -28,7 +28,7 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Permissions of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public enum HelloWorldPermission implements ProjectPermission {
     USE_PLUGIN(null, I18n.marktr("use addon")),

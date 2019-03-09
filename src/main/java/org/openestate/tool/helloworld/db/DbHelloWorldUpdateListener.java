@@ -29,7 +29,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * This listener may execute specific code on database updates by the HelloWorld
  * addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public class DbHelloWorldUpdateListener extends AbstractDbUpdateListener {
     @SuppressWarnings("unused")

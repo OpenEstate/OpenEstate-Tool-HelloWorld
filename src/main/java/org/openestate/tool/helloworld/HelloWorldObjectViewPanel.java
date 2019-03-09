@@ -64,7 +64,7 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Form to create or edit an object of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 @SuppressWarnings("WeakerAccess")
 public class HelloWorldObjectViewPanel extends AbstractMainView {

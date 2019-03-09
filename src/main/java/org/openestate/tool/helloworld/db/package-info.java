@@ -17,6 +17,6 @@
 /**
  * General database classes of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 package org.openestate.tool.helloworld.db;

@@ -29,7 +29,7 @@ import org.openestate.tool.helloworld.db.DbHelloWorldHandler;
 /**
  * An extension point, that provides database access for HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public interface DbHelloWorldExtension extends BasicExtension {
     DbHelloWorldHandler getHelloWorldHandler();

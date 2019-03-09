@@ -27,7 +27,7 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * An object, that is stored into the database for HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 @SuppressFBWarnings(
         value = "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD",

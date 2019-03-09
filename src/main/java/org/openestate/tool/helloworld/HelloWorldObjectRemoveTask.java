@@ -30,7 +30,7 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Remove an object of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public class HelloWorldObjectRemoveTask extends ImmoToolTask<Boolean, Void> {
     @SuppressWarnings("unused")

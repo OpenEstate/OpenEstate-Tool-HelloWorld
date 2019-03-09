@@ -30,7 +30,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * This extensions adds functions, that are called when a project is closed /
  * opened / cleaned / repaired.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public class HelloWorldProjectExtension extends ProjectAdapter {
     private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldProjectExtension.class);

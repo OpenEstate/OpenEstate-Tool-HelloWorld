@@ -27,7 +27,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * <p>
  * This class may be extended for database specific implementations.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public abstract class DbHelloWorldHandlerImpl implements DbHelloWorldHandler {
     @SuppressWarnings("unused")

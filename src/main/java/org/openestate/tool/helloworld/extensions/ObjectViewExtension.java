@@ -26,7 +26,7 @@ import org.openestate.tool.helloworld.db.DbHelloWorldObject;
 /**
  * An extension point, that adds custom features into {@link HelloWorldObjectViewPanel}.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public interface ObjectViewExtension extends BasicExtension {
     JMenuItem[] createActionMenuItems(DbHelloWorldObject object);

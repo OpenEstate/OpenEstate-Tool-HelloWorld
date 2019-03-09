@@ -37,7 +37,7 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Implementation of database operations on a HSQL database.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 @SuppressWarnings({"WeakerAccess", "SqlNoDataSourceInspection"})
 public class HSqlDbHelloWorldHandler extends DbHelloWorldHandlerImpl {

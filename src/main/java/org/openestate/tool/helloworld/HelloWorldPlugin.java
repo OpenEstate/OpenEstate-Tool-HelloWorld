@@ -53,7 +53,7 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Base class of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 @SuppressWarnings("WeakerAccess")
 public class HelloWorldPlugin extends ImmoToolProjectPlugin {

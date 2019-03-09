@@ -50,8 +50,8 @@
     <properties>
         <!-- build environment -->
         <openestate.build.encoding>UTF-8</openestate.build.encoding>
+        <openestate.build.javadocDir>${project.basedir}/apidocs</openestate.build.javadocDir>
         <openestate.build.packageDir>${project.basedir}/package</openestate.build.packageDir>
-        <openestate.build.javadocDir>${project.basedir}/javadoc</openestate.build.javadocDir>
         <openestate.immotool.version>1.0.0-SNAPSHOT</openestate.immotool.version>
 
         <!-- plugin settings -->
@@ -365,10 +365,26 @@
                                 </goals>
                                 <configuration>
                                     <quiet>true</quiet>
-                                    <outputDirectory>${openestate.build.javadocDir}</outputDirectory>
+                                    <encoding>${openestate.build.encoding}</encoding>
+                                    <docencoding>${openestate.build.encoding}</docencoding>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>javadoc-export</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                                <configuration>
+                                    <reportOutputDirectory>${project.basedir}</reportOutputDirectory>
+                                    <encoding>${openestate.build.encoding}</encoding>
+                                    <docencoding>${openestate.build.encoding}</docencoding>
+                                    <keywords>true</keywords>
+                                    <quiet>true</quiet>
+                                    <isOffline>false</isOffline>
                                     <links>
-                                        <link>http://docs.oracle.com/javase/6/docs/api/</link>
-                                        <link>http://manual.openestate.org/OpenEstate-Tool-${openestate.immotool.version}/</link>
+                                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
+                                        <link>https://media.openestate.org/apidocs/OpenEstate-Tool/${openestate.immotool.version}/</link>
                                     </links>
                                 </configuration>
                             </execution>

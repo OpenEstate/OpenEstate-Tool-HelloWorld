@@ -53,7 +53,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * This extensions integrates a separate sidebar for the addon into the
  * application.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 @SuppressWarnings("WeakerAccess")
 public class HelloWorldFrameSidebarExtension extends FrameSidebarAdapter {

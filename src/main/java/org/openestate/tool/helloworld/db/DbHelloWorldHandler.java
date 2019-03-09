@@ -21,7 +21,7 @@ import java.sql.SQLException;
 /**
  * Specification of database operations for HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 public interface DbHelloWorldHandler {
     DbHelloWorldObject getObject(Connection c, long id) throws SQLException;

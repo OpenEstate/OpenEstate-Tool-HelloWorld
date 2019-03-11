@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,20 @@ import java.sql.SQLException;
 /**
  * Specification of database operations for HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public interface DbHelloWorldHandler
-{
-  public DbHelloWorldObject getObject( Connection c, long id ) throws SQLException;
+public interface DbHelloWorldHandler {
+    DbHelloWorldObject getObject(Connection c, long id) throws SQLException;
 
-  public DbHelloWorldObject[] getObjects( Connection c ) throws SQLException;
+    DbHelloWorldObject[] getObjects(Connection c) throws SQLException;
 
-  public DbHelloWorldObject[] getObjects( Connection c, long[] ids ) throws SQLException;
+    DbHelloWorldObject[] getObjects(Connection c, long[] ids) throws SQLException;
 
-  public long[] getObjectIds( Connection c ) throws SQLException;
+    long[] getObjectIds(Connection c) throws SQLException;
 
-  public void removeObject( Connection c, long id ) throws SQLException;
+    void removeObject(Connection c, long id) throws SQLException;
 
-  public void removeObjects( Connection c, long[] ids ) throws SQLException;
+    void removeObjects(Connection c, long[] ids) throws SQLException;
 
-  public void saveObject( Connection c, DbHelloWorldObject feed ) throws SQLException;
+    void saveObject(Connection c, DbHelloWorldObject feed) throws SQLException;
 }

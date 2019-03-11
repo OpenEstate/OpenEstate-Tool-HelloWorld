@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package org.openestate.tool.helloworld;
 import com.openindex.openestate.tool.ImmoToolException;
 import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.extensions.ProjectAdapter;
+import com.openindex.openestate.tool.extensions.ProjectExtension;
 import org.openestate.tool.helloworld.extensions.DbHelloWorldExtension;
+import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -30,42 +32,39 @@ import org.xnap.commons.i18n.I18nFactory;
  * This extensions adds functions, that are called when a project is closed /
  * opened / cleaned / repaired.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public class HelloWorldProjectExtension extends ProjectAdapter
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldProjectExtension.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldProjectExtension.class );
+@Extension(points = ProjectExtension.class)
+public class HelloWorldProjectExtension extends ProjectAdapter {
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldProjectExtension.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldProjectExtension.class);
 
-  @Override
-  public void clean( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "clean project..." );
-  }
+    @Override
+    public void clean(ImmoToolProject project) {
+        LOGGER.debug("clean project...");
+    }
 
-  @Override
-  public void close( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "close project..." );
+    @Override
+    public void close(ImmoToolProject project) {
+        LOGGER.debug("close project...");
 
-    // unregister the database extension, when the project is closed
-    HelloWorldPlugin.setDbHelloWorldExtension( null );
-  }
+        // unregister the database extension, when the project is closed
+        HelloWorldPlugin.setDbHelloWorldExtension(null);
+    }
 
-  @Override
-  public void open( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "open project..." );
+    @Override
+    public void open(ImmoToolProject project) throws ImmoToolException {
+        LOGGER.debug("open project...");
 
-    // register the database extension, when the project is loaded
-    DbHelloWorldExtension dbHelloWorldExtension = HelloWorldPluginUtils.getDbHelloWorldExtension( project );
-    if (dbHelloWorldExtension==null) throw new ImmoToolException( "Can't find a usable DbHelloWorldExtension!" );
-    HelloWorldPlugin.setDbHelloWorldExtension( dbHelloWorldExtension );
-  }
+        // register the database extension, when the project is loaded
+        DbHelloWorldExtension dbHelloWorldExtension = DbHelloWorldExtension.loadByProject(project);
+        if (dbHelloWorldExtension == null) throw new ImmoToolException("Can't find a usable DbHelloWorldExtension!");
+        HelloWorldPlugin.setDbHelloWorldExtension(dbHelloWorldExtension);
+    }
 
-  @Override
-  public void repair( ImmoToolProject project ) throws ImmoToolException
-  {
-    LOGGER.debug( "repair project..." );
-  }
+    @Override
+    public void repair(ImmoToolProject project) {
+        LOGGER.debug("repair project...");
+    }
 }

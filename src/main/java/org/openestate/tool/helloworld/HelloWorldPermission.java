@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,59 +28,53 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Permissions of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public enum HelloWorldPermission implements ProjectPermission
-{
-  USE_PLUGIN( null, I18n.marktr( "use addon" ) ),
+public enum HelloWorldPermission implements ProjectPermission {
+    USE_PLUGIN(null, I18n.marktr("use addon")),
 
-  OBJECTS( USE_PLUGIN, I18n.marktr( "access to objects" ) ),
-  OBJECTS_EDIT( OBJECTS, I18n.marktr( "edit objects" ) ),
-  OBJECTS_REMOVE( OBJECTS, I18n.marktr( "remove objects" ) );
+    OBJECTS(USE_PLUGIN, I18n.marktr("access to objects")),
+    OBJECTS_EDIT(OBJECTS, I18n.marktr("edit objects")),
+    OBJECTS_REMOVE(OBJECTS, I18n.marktr("remove objects"));
 
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldPermission.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldPermission.class );
-  private final String i18nKey;
-  private final ProjectPermission parent;
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldPermission.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldPermission.class);
+    private final String i18nKey;
+    private final ProjectPermission parent;
 
-  private HelloWorldPermission( ProjectPermission parent, String i18nKey )
-  {
-    this.parent = parent;
-    this.i18nKey = i18nKey;
-  }
-
-  @Override
-  public ProjectPermission[] getChildren()
-  {
-    List<ProjectPermission> perms = new ArrayList<>();
-    for (HelloWorldPermission p : values())
-    {
-      if (this.equals( p.parent )) perms.add( p );
+    HelloWorldPermission(ProjectPermission parent, String i18nKey) {
+        this.parent = parent;
+        this.i18nKey = i18nKey;
     }
-    return perms.toArray( new ProjectPermission[perms.size()] );
-  }
 
-  @Override
-  public String getKey()
-  {
-    return name();
-  }
+    @Override
+    public ProjectPermission[] getChildren() {
+        List<ProjectPermission> perms = new ArrayList<>();
+        for (HelloWorldPermission p : values()) {
+            if (this.equals(p.parent)) perms.add(p);
+        }
+        return perms.toArray(new ProjectPermission[0]);
+    }
 
-  @Override
-  public ProjectPermission getParent()
-  {
-    return parent;
-  }
+    @Override
+    public String getKey() {
+        return name();
+    }
 
-  @Override
-  public String getTranslation()
-  {
-    return ImmoToolUtils.getI18nString( HelloWorldPermission.class, i18nKey );
-  }
+    @Override
+    public ProjectPermission getParent() {
+        return parent;
+    }
 
-  @Override
-  public String getTranslation( Locale locale )
-  {
-    return ImmoToolUtils.getI18nString( HelloWorldPermission.class, i18nKey, locale );
-  }
+    @Override
+    public String getTranslation() {
+        return ImmoToolUtils.getI18nString(HelloWorldPermission.class, i18nKey);
+    }
+
+    @Override
+    public String getTranslation(Locale locale) {
+        return ImmoToolUtils.getI18nString(HelloWorldPermission.class, i18nKey, locale);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,6 @@
 /**
  * Extensions of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
 package org.openestate.tool.helloworld.extensions;

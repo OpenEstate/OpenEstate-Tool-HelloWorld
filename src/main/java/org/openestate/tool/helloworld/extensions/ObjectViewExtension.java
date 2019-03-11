@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,33 @@
  */
 package org.openestate.tool.helloworld.extensions;
 
+import com.openindex.openestate.tool.ImmoToolEnvironment;
+import com.openindex.openestate.tool.ImmoToolProject;
 import com.openindex.openestate.tool.extensions.BasicExtension;
+import java.util.Collection;
 import javax.swing.JMenuItem;
 import org.openestate.tool.helloworld.HelloWorldObjectViewPanel;
 import org.openestate.tool.helloworld.db.DbHelloWorldObject;
 
 /**
- * An extension point, that adds custom features into
- * {@link HelloWorldObjectViewPanel}.
+ * An extension point, that adds custom features into {@link HelloWorldObjectViewPanel}.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public interface ObjectViewExtension extends BasicExtension
-{
-  public final static String ID = "ObjectViewExtension";
+public interface ObjectViewExtension extends BasicExtension {
+    JMenuItem[] createActionMenuItems(DbHelloWorldObject object);
 
-  public JMenuItem[] createActionMenuItems( DbHelloWorldObject object );
+    HelloWorldObjectViewPanel.AbstractTab[] createTabs();
 
-  public HelloWorldObjectViewPanel.AbstractTab[] createTabs();
+    /**
+     * Load available implementations of {@link ObjectViewExtension}.
+     *
+     * @return available implementations of {@link ObjectViewExtension}
+     */
+    static Collection<ObjectViewExtension> load() {
+        return ImmoToolEnvironment.getExtensions(
+                ObjectViewExtension.class,
+                ImmoToolProject.getAppInstance()
+        );
+    }
 }

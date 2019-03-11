@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,56 +30,48 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Remove an object of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public class HelloWorldObjectRemoveTask extends ImmoToolTask<Boolean, Void>
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldObjectRemoveTask.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldObjectRemoveTask.class );
-  private final long objectId;
-  private final AbstractDbDriver dbDriver;
+public class HelloWorldObjectRemoveTask extends ImmoToolTask<Boolean, Void> {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldObjectRemoveTask.class);
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldObjectRemoveTask.class);
+    private final long objectId;
+    private final AbstractDbDriver dbDriver;
 
-  public HelloWorldObjectRemoveTask( AbstractDbDriver dbDriver, long objectId )
-  {
-    super();
-    this.dbDriver = dbDriver;
-    this.objectId = objectId;
-  }
-
-  @Override
-  protected Boolean doInBackground() throws Exception
-  {
-    final DbHelloWorldHandler dbHandler = HelloWorldPlugin.getDbHelloWorldExtension().getHelloWorldHandler();
-    Connection c = null;
-    try
-    {
-      c = dbDriver.getConnection();
-      dbHandler.removeObject( c, objectId );
-      return true;
+    public HelloWorldObjectRemoveTask(AbstractDbDriver dbDriver, long objectId) {
+        super();
+        this.dbDriver = dbDriver;
+        this.objectId = objectId;
     }
-    finally
-    {
-      JdbcUtils.closeQuietly( c );
+
+    @Override
+    protected Boolean doInBackground() throws Exception {
+        final DbHelloWorldHandler dbHandler = HelloWorldPlugin.getDbHelloWorldExtension().getHelloWorldHandler();
+        Connection c = null;
+        try {
+            c = dbDriver.getConnection();
+            dbHandler.removeObject(c, objectId);
+            return true;
+        } finally {
+            JdbcUtils.closeQuietly(c);
+        }
     }
-  }
 
-  @Override
-  protected void failed( Throwable t )
-  {
-    super.failed( t );
-    ImmoToolUtils.showMessageErrorDialog(
-      I18N.tr( "Can't remove object!" ), t, ImmoToolEnvironment.getFrame() );
-  }
-
-  @Override
-  protected void succeeded( Boolean result )
-  {
-    super.succeeded( result );
-
-    // refresh sidebar after an object was removed
-    if (Boolean.TRUE.equals( result ))
-    {
-      HelloWorldPlugin.refreshSidebar();
+    @Override
+    protected void failed(Throwable t) {
+        super.failed(t);
+        ImmoToolUtils.showMessageErrorDialog(
+                I18N.tr("Can't remove object!"), t, ImmoToolEnvironment.getFrame());
     }
-  }
+
+    @Override
+    protected void succeeded(Boolean result) {
+        super.succeeded(result);
+
+        // refresh sidebar after an object was removed
+        if (Boolean.TRUE.equals(result)) {
+            HelloWorldPlugin.refreshSidebar();
+        }
+    }
 }

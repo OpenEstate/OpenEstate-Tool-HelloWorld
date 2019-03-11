@@ -1,7 +1,10 @@
+-- noinspection SqlResolveForFile
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- -----------------------------------------------------
 -- HelloWorld-Addon for OpenEstate-ImmoTool
 -- schema for HSQLDB
--- Copyright (C) 2012-2017 OpenEstate.org
+-- Copyright 2012-2019 OpenEstate.org
 -- -----------------------------------------------------
 
 CREATE SEQUENCE seq_immotool_helloworld

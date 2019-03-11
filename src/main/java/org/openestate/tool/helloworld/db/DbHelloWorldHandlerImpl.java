@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,46 +27,43 @@ import org.xnap.commons.i18n.I18nFactory;
  * <p>
  * This class may be extended for database specific implementations.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public abstract class DbHelloWorldHandlerImpl implements DbHelloWorldHandler
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldHandlerImpl.class );
-  private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldHandlerImpl.class );
+public abstract class DbHelloWorldHandlerImpl implements DbHelloWorldHandler {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(DbHelloWorldHandlerImpl.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(DbHelloWorldHandlerImpl.class);
 
-  protected DbHelloWorldObject createObject()
-  {
-    return new DbHelloWorldObject();
-  }
+    protected DbHelloWorldObject createObject() {
+        return new DbHelloWorldObject();
+    }
 
-  @Override
-  public final DbHelloWorldObject getObject( Connection c, long id ) throws SQLException
-  {
-    DbHelloWorldObject[] result = getObjects( c, new long[]{id} );
-    return (result!=null && result.length>0)? result[0]: null;
-  }
+    @Override
+    public final DbHelloWorldObject getObject(Connection c, long id) throws SQLException {
+        DbHelloWorldObject[] result = getObjects(c, new long[]{id});
+        return (result != null && result.length > 0) ? result[0] : null;
+    }
 
-  @Override
-  public final DbHelloWorldObject[] getObjects( Connection c ) throws SQLException
-  {
-    return getObjects( c, null );
-  }
+    @Override
+    public final DbHelloWorldObject[] getObjects(Connection c) throws SQLException {
+        return getObjects(c, null);
+    }
 
-  @Override
-  public abstract DbHelloWorldObject[] getObjects( Connection c, long[] ids ) throws SQLException;
+    @Override
+    public abstract DbHelloWorldObject[] getObjects(Connection c, long[] ids) throws SQLException;
 
-  @Override
-  public abstract long[] getObjectIds( Connection c ) throws SQLException;
+    @Override
+    public abstract long[] getObjectIds(Connection c) throws SQLException;
 
-  @Override
-  public final void removeObject( Connection c, long id ) throws SQLException
-  {
-    removeObjects( c, new long[]{id} );
-  }
+    @Override
+    public final void removeObject(Connection c, long id) throws SQLException {
+        removeObjects(c, new long[]{id});
+    }
 
-  @Override
-  public abstract void removeObjects( Connection c, long[] ids ) throws SQLException;
+    @Override
+    public abstract void removeObjects(Connection c, long[] ids) throws SQLException;
 
-  @Override
-  public abstract void saveObject( Connection c, DbHelloWorldObject feed ) throws SQLException;
+    @Override
+    public abstract void saveObject(Connection c, DbHelloWorldObject feed) throws SQLException;
 }

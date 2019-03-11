@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,113 +34,92 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * Show form to create or edit an object of the HelloWorld addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public class HelloWorldObjectViewTask extends ImmoToolTask<HelloWorldObjectViewPanel, Void>
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldObjectViewTask.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldObjectViewTask.class );
-  private final long objectId;
-  private final boolean selectCreatedTab;
-  private final HelloWorldObjectViewPanel viewTab;
-  private final AbstractDbDriver dbDriver;
+public class HelloWorldObjectViewTask extends ImmoToolTask<HelloWorldObjectViewPanel, Void> {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldObjectViewTask.class);
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldObjectViewTask.class);
+    private final long objectId;
+    private final boolean selectCreatedTab;
+    private final HelloWorldObjectViewPanel viewTab;
+    private final AbstractDbDriver dbDriver;
 
-  public HelloWorldObjectViewTask( AbstractDbDriver dbDriver, long objectId )
-  {
-    this( dbDriver, objectId, true );
-  }
-
-  public HelloWorldObjectViewTask( AbstractDbDriver dbDriver, long objectId, boolean selectCreatedTab )
-  {
-    super( I18N.tr( "Loading object {0}.", "#" + objectId ) );
-    this.dbDriver = dbDriver;
-    this.objectId = objectId;
-    this.selectCreatedTab = selectCreatedTab;
-    this.viewTab = null;
-  }
-
-  public HelloWorldObjectViewTask( AbstractDbDriver dbDriver, long objectId, HelloWorldObjectViewPanel viewTab )
-  {
-    super( I18N.tr( "Loading object {0}.", "#" + objectId ) );
-    this.dbDriver = dbDriver;
-    this.objectId = objectId;
-    this.selectCreatedTab = true;
-    this.viewTab = viewTab;
-  }
-
-  @Override
-  protected HelloWorldObjectViewPanel doInBackground() throws Exception
-  {
-    final DbHelloWorldHandler dbHandler = HelloWorldPlugin.getDbHelloWorldExtension().getHelloWorldHandler();
-
-    // check, if a tab for the selected object is already opened
-    if (viewTab==null)
-    {
-      AbstractMainTab[] tabs = ImmoToolAppUtils.getTabs( HelloWorldObjectViewPanel.class );
-      for (AbstractMainTab tab : tabs)
-      {
-        HelloWorldObjectViewPanel form = (HelloWorldObjectViewPanel) tab;
-        if (objectId<1 && form.getCurrentObjectId()<1)
-        {
-          if (selectCreatedTab) ImmoToolAppUtils.selectTab( form );
-          return null;
-        }
-        else if (objectId>0 && form.getCurrentObjectId()==objectId)
-        {
-          if (selectCreatedTab) ImmoToolAppUtils.selectTab( form );
-          return null;
-        }
-      }
+    public HelloWorldObjectViewTask(AbstractDbDriver dbDriver, long objectId) {
+        this(dbDriver, objectId, true);
     }
 
-    // create a new tab for the object
-    final HelloWorldObjectViewPanel form;
-    if (objectId<1)
-    {
-      form = (viewTab!=null)? viewTab: HelloWorldObjectViewPanel.createTab();
+    public HelloWorldObjectViewTask(AbstractDbDriver dbDriver, long objectId, boolean selectCreatedTab) {
+        super(I18N.tr("Loading object {0}.", "#" + objectId));
+        this.dbDriver = dbDriver;
+        this.objectId = objectId;
+        this.selectCreatedTab = selectCreatedTab;
+        this.viewTab = null;
     }
-    else
-    {
-      Connection c = null;
-      try
-      {
-        c = dbDriver.getConnection();
-        DbHelloWorldObject object = dbHandler.getObject( c, objectId );
-        if (object==null) throw new Exception( "Can't find object #" + objectId + "!" );
-        if (viewTab==null)
-        {
-          form = HelloWorldObjectViewPanel.createTab( object );
-        }
-        else
-        {
-          form = viewTab;
-          form.setObject( object );
-        }
-      }
-      finally
-      {
-        JdbcUtils.closeQuietly( c );
-      }
-    }
-    return form;
-  }
 
-  @Override
-  protected void failed( Throwable ex )
-  {
-    super.failed( ex );
-    ImmoToolUtils.showMessageErrorDialog(
-      I18N.tr( "Can't load object!" ), ex, ImmoToolEnvironment.getFrame() );
-  }
-
-  @Override
-  protected void succeeded( HelloWorldObjectViewPanel form )
-  {
-    super.succeeded( form );
-    if (form!=null)
-    {
-      ImmoToolAppUtils.showTab( form, selectCreatedTab );
-      form.loadInBackground( ImmoToolProject.getAppInstance().getDbDriver() );
+    public HelloWorldObjectViewTask(AbstractDbDriver dbDriver, long objectId, HelloWorldObjectViewPanel viewTab) {
+        super(I18N.tr("Loading object {0}.", "#" + objectId));
+        this.dbDriver = dbDriver;
+        this.objectId = objectId;
+        this.selectCreatedTab = true;
+        this.viewTab = viewTab;
     }
-  }
+
+    @Override
+    protected HelloWorldObjectViewPanel doInBackground() throws Exception {
+        final DbHelloWorldHandler dbHandler = HelloWorldPlugin.getDbHelloWorldExtension().getHelloWorldHandler();
+
+        // check, if a tab for the selected object is already opened
+        if (viewTab == null) {
+            AbstractMainTab[] tabs = ImmoToolAppUtils.getTabs(HelloWorldObjectViewPanel.class);
+            for (AbstractMainTab tab : tabs) {
+                HelloWorldObjectViewPanel form = (HelloWorldObjectViewPanel) tab;
+                if (objectId < 1 && form.getCurrentObjectId() < 1) {
+                    if (selectCreatedTab) ImmoToolAppUtils.selectTab(form);
+                    return null;
+                } else if (objectId > 0 && form.getCurrentObjectId() == objectId) {
+                    if (selectCreatedTab) ImmoToolAppUtils.selectTab(form);
+                    return null;
+                }
+            }
+        }
+
+        // create a new tab for the object
+        final HelloWorldObjectViewPanel form;
+        if (objectId < 1) {
+            form = (viewTab != null) ? viewTab : HelloWorldObjectViewPanel.createTab();
+        } else {
+            Connection c = null;
+            try {
+                c = dbDriver.getConnection();
+                DbHelloWorldObject object = dbHandler.getObject(c, objectId);
+                if (object == null) throw new Exception("Can't find object #" + objectId + "!");
+                if (viewTab == null) {
+                    form = HelloWorldObjectViewPanel.createTab(object);
+                } else {
+                    form = viewTab;
+                    form.setObject(object);
+                }
+            } finally {
+                JdbcUtils.closeQuietly(c);
+            }
+        }
+        return form;
+    }
+
+    @Override
+    protected void failed(Throwable ex) {
+        super.failed(ex);
+        ImmoToolUtils.showMessageErrorDialog(
+                I18N.tr("Can't load object!"), ex, ImmoToolEnvironment.getFrame());
+    }
+
+    @Override
+    protected void succeeded(HelloWorldObjectViewPanel form) {
+        super.succeeded(form);
+        if (form != null) {
+            ImmoToolAppUtils.showTab(form, selectCreatedTab);
+            form.loadInBackground(ImmoToolProject.getAppInstance().getDbDriver());
+        }
+    }
 }

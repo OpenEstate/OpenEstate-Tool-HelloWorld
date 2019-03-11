@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@
 package org.openestate.tool.helloworld;
 
 import com.openindex.openestate.tool.extensions.FrameMenuAdapter;
+import com.openindex.openestate.tool.extensions.FrameMenuExtension;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -29,26 +31,28 @@ import org.xnap.commons.i18n.I18nFactory;
  * This extensions integrates a separate menu for the addon into the
  * applications main menu.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public class HelloWorldFrameMenuExtension extends FrameMenuAdapter
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( HelloWorldFrameMenuExtension.class );
-  private final static I18n I18N = I18nFactory.getI18n( HelloWorldFrameMenuExtension.class );
+@Extension(points = FrameMenuExtension.class)
+public class HelloWorldFrameMenuExtension extends FrameMenuAdapter {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldFrameMenuExtension.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(HelloWorldFrameMenuExtension.class);
 
-  @Override
-  public JMenu createMainMenu()
-  {
-    // create a main menu entry for the Hello World Plugin
-    JMenu menu = new JMenu( HelloWorldPlugin.getInstance().getTitle() );
+    @Override
+    public JMenu createMainMenu() {
+        // create a main menu entry for the Hello World Plugin
+        //noinspection ConstantConditions
+        JMenu menu = new JMenu(HelloWorldPlugin.getInstance().getTitle());
 
-    // add action into the main menu for sidebar view
-    menu.add( new JMenuItem( new HelloWorldPlugin.SidebarSelectAction() ) );
+        // add action into the main menu for sidebar view
+        menu.add(new JMenuItem(new HelloWorldPlugin.SidebarSelectAction()));
 
-    // add action into the main menu for a new object
-    menu.add( new JMenuItem( new HelloWorldPlugin.ObjectFormAction() ) );
+        // add action into the main menu for a new object
+        menu.add(new JMenuItem(new HelloWorldPlugin.ObjectFormAction()));
 
-    // return the created main menu
-    return menu;
-  }
+        // return the created main menu
+        return menu;
+    }
 }

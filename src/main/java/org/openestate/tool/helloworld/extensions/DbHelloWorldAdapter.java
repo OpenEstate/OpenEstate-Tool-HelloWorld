@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,48 +33,46 @@ import org.xnap.commons.i18n.I18nFactory;
  * This class may be extended for any database backend, that is supported by
  * this addon.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public abstract class DbHelloWorldAdapter implements DbHelloWorldExtension
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( DbHelloWorldAdapter.class );
-  private final static I18n I18N = I18nFactory.getI18n( DbHelloWorldAdapter.class );
+public abstract class DbHelloWorldAdapter implements DbHelloWorldExtension {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(DbHelloWorldAdapter.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(DbHelloWorldAdapter.class);
 
-  @Override
-  public abstract DbHelloWorldHandler getHelloWorldHandler();
+    @Override
+    public abstract DbHelloWorldHandler getHelloWorldHandler();
 
-  @Override
-  public String[] getRequiredPluginIds()
-  {
-    return null;
-  }
+    @Override
+    public String[] getRequiredPluginIds() {
+        return null;
+    }
 
-  @Override
-  public abstract String[] getRequiredProcedures();
+    @Override
+    public abstract String[] getRequiredProcedures();
 
-  @Override
-  public abstract String[] getRequiredViews();
+    @Override
+    public abstract String[] getRequiredViews();
 
-  @Override
-  public abstract String[] getSupportedDrivers();
+    @Override
+    public abstract String[] getSupportedDrivers();
 
-  @Override
-  public abstract String getUninstallQuery() throws IOException;
+    @Override
+    public abstract String getUninstallQuery() throws IOException;
 
-  @Override
-  public abstract DbUpdateHandler getUpdateHandler();
+    @Override
+    public abstract DbUpdateHandler getUpdateHandler();
 
-  @Override
-  public abstract void install( Connection c ) throws IOException, SQLException;
+    @Override
+    public abstract void install(Connection c) throws IOException, SQLException;
 
-  @Override
-  public final boolean isSupportedDriver( String driverName )
-  {
-    return driverName!=null && ArrayUtils.contains( getSupportedDrivers(), driverName );
-  }
+    @Override
+    public final boolean isSupportedDriver(String driverName) {
+        return driverName != null && ArrayUtils.contains(getSupportedDrivers(), driverName);
+    }
 
-  @Override
-  public void repair( Connection c, AbstractDbDriver driver ) throws SQLException
-  {
-  }
+    @Override
+    public void repair(Connection c, AbstractDbDriver driver) throws SQLException {
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 OpenEstate.org.
+ * Copyright 2012-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,28 +30,26 @@ import org.xnap.commons.i18n.I18nFactory;
  * This class may be extended for custom tabs or actions in the
  * {@link HelloWorldObjectViewPanel}.
  *
- * @author Andreas Rudolph <andy@openindex.de>
+ * @author Andreas Rudolph
  */
-public abstract class ObjectViewAdapter implements ObjectViewExtension
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( ObjectViewAdapter.class );
-  private final static I18n I18N = I18nFactory.getI18n( ObjectViewAdapter.class );
+public abstract class ObjectViewAdapter implements ObjectViewExtension {
+    @SuppressWarnings("unused")
+    private final static Logger LOGGER = LoggerFactory.getLogger(ObjectViewAdapter.class);
+    @SuppressWarnings("unused")
+    private final static I18n I18N = I18nFactory.getI18n(ObjectViewAdapter.class);
 
-  @Override
-  public JMenuItem[] createActionMenuItems( DbHelloWorldObject object )
-  {
-    return null;
-  }
+    @Override
+    public JMenuItem[] createActionMenuItems(DbHelloWorldObject object) {
+        return null;
+    }
 
-  @Override
-  public HelloWorldObjectViewPanel.AbstractTab[] createTabs()
-  {
-    return null;
-  }
+    @Override
+    public HelloWorldObjectViewPanel.AbstractTab[] createTabs() {
+        return null;
+    }
 
-  @Override
-  public String[] getRequiredPluginIds()
-  {
-    return null;
-  }
+    @Override
+    public String[] getRequiredPluginIds() {
+        return null;
+    }
 }

@@ -2,6 +2,12 @@ Changelog for OpenEstate-Tool-HelloWorld
 ========================================
 
 
+1.1.0-SNAPSHOT (not released yet)
+---------------------------------
+
+...
+
+
 1.0.0 (11 Mar 2019)
 -------------------
 

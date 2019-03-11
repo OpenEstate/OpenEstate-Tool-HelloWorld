@@ -1,5 +1,5 @@
-OpenEstate-Tool-HelloWorld 1.0.0
-================================
+OpenEstate-Tool-HelloWorld 1.1.0-SNAPSHOT
+=========================================
 
 *OpenEstate-Tool-HelloWorld* is an addon for the freeware real estate software [*OpenEstate-ImmoTool*](https://openestate.org), that does not provide any features for end users. Instead this addon
 
